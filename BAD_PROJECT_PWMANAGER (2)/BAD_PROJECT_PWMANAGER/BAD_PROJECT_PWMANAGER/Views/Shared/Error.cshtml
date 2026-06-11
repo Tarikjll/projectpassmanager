@@ -1,0 +1,25 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">@T("Error.Title").</h1>
+<h2 class="text-danger">@T("Error.Subtitle")</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>@T("Error.RequestId"):</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>@T("Error.DevelopmentMode")</h3>
+<p>
+    @T("Error.DevelopmentCopy")
+</p>
+<p>
+    <strong>@T("Error.DevelopmentWarning")</strong>
+    It can result in displaying sensitive information from exceptions to end users.
+    @T("Error.DevelopmentHelp")
+    and restarting the app.
+</p>

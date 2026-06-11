@@ -1,0 +1,43 @@
+﻿@model BAD_PROJECT_PWMANAGER.ViewModels.Vault.VaultFormViewModel
+
+@{
+    ViewData["Title"] = T("Vault.CreateTitle");
+}
+
+<div class="page-shell">
+    <div class="page-header">
+        <div>
+            <h1>@T("Vault.CreateTitle")</h1>
+            <p class="page-subtitle">@T("Vault.CreateSubtitle")</p>
+        </div>
+    </div>
+
+    <form asp-action="Create" method="post" class="form-panel">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="All" class="text-danger form-summary"></div>
+
+        <div class="form-grid">
+        <div class="form-group form-field full-width">
+            <label asp-for="Name" class="form-label">@T("Common.Name")</label>
+            <input asp-for="Name" class="form-control form-control-lg" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group form-field full-width">
+            <label asp-for="Description" class="form-label">@T("Common.Description")</label>
+            <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">@T("Common.Save")</button>
+            <a asp-action="Index" class="btn btn-outline-secondary">@T("Common.Cancel")</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

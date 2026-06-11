@@ -1,0 +1,117 @@
+@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Profiel";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<div class="page-shell">
+    <div class="form-card-header">
+        <span class="home-kicker">@T("Account.ProfileKicker")</span>
+        <h2>@T("Account.PersonalData")</h2>
+        <p class="page-subtitle">@T("Account.ProfileCopy")</p>
+    </div>
+
+    <partial name="_StatusMessage" for="StatusMessage" />
+
+    <form id="profile-form" method="post" enctype="multipart/form-data" class="form-panel">
+        <div asp-validation-summary="ModelOnly" class="text-danger form-summary" role="alert"></div>
+
+        <div class="profile-layout">
+            <aside class="form-field text-center">
+                <img src="@Model.CurrentProfileImageSrc"
+                     alt="@T("Account.ProfileImage")"
+                     class="profile-avatar mb-3" />
+                <div class="form-group">
+                    <label asp-for="Input.ProfileImage" class="form-label"></label>
+                    <div class="profile-file-picker">
+                        <label class="btn btn-profile-photo w-100" for="profileImageInput">
+                            Foto kiezen
+                        </label>
+                        <span class="profile-file-name" data-profile-file-name>@T("Account.NoFile")</span>
+                    </div>
+                    <input asp-for="Input.ProfileImage"
+                           id="profileImageInput"
+                           type="file"
+                           class="visually-hidden"
+                           accept=".jpg,.jpeg,.png,.webp"
+                           data-profile-file-input />
+                    <span asp-validation-for="Input.ProfileImage" class="text-danger"></span>
+                </div>
+            </aside>
+
+            <div class="form-grid">
+                <div class="form-group form-field">
+                    <label asp-for="Input.UserName" class="form-label"></label>
+                    <input asp-for="Input.UserName"
+                           class="form-control"
+                           placeholder="@T("Account.Username")"
+                           autocomplete="username" />
+                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field">
+                    <label asp-for="Input.Email" class="form-label"></label>
+                    <input asp-for="Input.Email"
+                           class="form-control"
+                           readonly />
+                </div>
+
+                <div class="form-group form-field">
+                    <label asp-for="Input.FirstName" class="form-label"></label>
+                    <input asp-for="Input.FirstName"
+                           class="form-control"
+                           placeholder="@T("Account.FirstName")" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field">
+                    <label asp-for="Input.LastName" class="form-label"></label>
+                    <input asp-for="Input.LastName"
+                           class="form-control"
+                           placeholder="@T("Account.LastName")" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field full-width">
+                    <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                    <input asp-for="Input.PhoneNumber"
+                           class="form-control"
+                           placeholder="@T("Account.Phone")" />
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="security-link-grid mt-4">
+            <a class="security-link" asp-page="./Email">@T("Account.EmailSettings")</a>
+            <a class="security-link" asp-page="./ChangePassword">@T("Account.PasswordSecurity")</a>
+            <a class="security-link" asp-page="./TwoFactorAuthentication">@T("Account.TwoFactor")</a>
+        </div>
+
+        <div class="form-actions">
+            <button id="update-profile-button" type="submit" class="btn btn-lg btn-primary">
+                Profiel opslaan
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (() => {
+            const input = document.querySelector("[data-profile-file-input]");
+            const fileName = document.querySelector("[data-profile-file-name]");
+
+            if (!input || !fileName) {
+                return;
+            }
+
+            input.addEventListener("change", () => {
+                fileName.textContent = input.files?.[0]?.name || "Geen bestand geselecteerd";
+            });
+        })();
+    </script>
+}

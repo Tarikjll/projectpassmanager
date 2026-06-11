@@ -1,0 +1,310 @@
+@model BAD_PROJECT_PWMANAGER.ViewModels.PasswordEntry.PasswordEntryDetailViewModel
+
+@{
+    ViewData["Title"] = T("Password.DetailsTitle");
+}
+
+<div class="page-shell">
+    <div class="page-header password-detail-header">
+        <div>
+            <h1>@T("Password.DetailsTitle")</h1>
+            <p class="page-subtitle">@Model.Platform voor @Model.Username</p>
+        </div>
+        <div class="action-group detail-actions">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">@T("Common.Edit")</a>
+            <a asp-action="Index" asp-route-vaultId="@Model.VaultId" class="btn btn-outline-secondary">@T("Common.Back")</a>
+            <form asp-action="Delete" asp-route-id="@Model.Id" asp-route-vaultId="@Model.VaultId" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal">
+                    @T("Common.Delete")
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="password-detail-layout">
+        <section class="content-card password-detail-main">
+            <div class="content-card-body">
+                <div class="detail-section-heading">
+                    <div>
+                        <span class="home-kicker">@T("Password.Login")</span>
+                        <h2>@Model.Platform</h2>
+                    </div>
+                    <span class="strength-badge" data-strength="@Model.StrengthLabel">@Model.StrengthLabel</span>
+                </div>
+
+                <div class="detail-grid compact-detail-grid">
+                    <div class="detail-item">
+                        <span class="detail-label">@T("Password.Username")</span>
+                        <div class="detail-value-row">
+                            <span>@Model.Username</span>
+                            <button type="button"
+                                    class="btn btn-sm btn-icon btn-outline-secondary"
+                                    data-copy-value="@Model.Username"
+                                    aria-label="@T("Password.CopyUsername")"
+                                    title="@T("Password.CopyUsername")">
+                                <svg class="btn-svg" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Url))
+                    {
+                        <div class="detail-item">
+                            <span class="detail-label">URL</span>
+                            <a href="@Model.Url" target="_blank" rel="noopener">@Model.Url</a>
+                        </div>
+                    }
+
+                    <div class="detail-item full-width password-field-card">
+                        <span class="detail-label">@T("Account.Password")</span>
+                        <div class="input-group">
+                            <input id="passwordField" type="password" class="form-control" value="@Model.Password" readonly />
+                            <button type="button" class="btn btn-outline-secondary" data-toggle-password="passwordField">
+                                Toon
+                            </button>
+                            <button type="button"
+                                    class="btn btn-icon btn-outline-primary"
+                                    data-copy-password="passwordField"
+                                    aria-label="@T("Password.CopyPassword")"
+                                    title="@T("Password.CopyPassword")">
+                                <svg class="btn-svg" viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Notes))
+                    {
+                        <div class="detail-item full-width">
+                            <span class="detail-label">@T("Password.Notes")</span>
+                            @Model.Notes
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <aside class="password-detail-side">
+            <section class="content-card">
+                <div class="content-card-body">
+                    <div class="detail-section-heading">
+                        <div>
+                            <span class="home-kicker">@T("Common.Status")</span>
+                            <h2>@T("Password.SecurityCheck")</h2>
+                        </div>
+                    </div>
+
+                    @if (User.IsInRole("PremiumUser"))
+                    {
+                        @if (Model.IsPasswordReused || Model.IsPasswordOld)
+                        {
+                            <div class="d-flex flex-column gap-2">
+                                @if (Model.IsPasswordReused)
+                                {
+                                    <div class="alert alert-warning mb-0">
+                                        <strong>@T("Password.ReusedPassword")</strong><br />
+                                        Ook gebruikt bij @string.Join(", ", Model.ReusedWithPlatforms).
+                                    </div>
+                                }
+
+                                @if (Model.IsPasswordOld)
+                                {
+                                    <div class="alert alert-warning mb-0">
+                                        <strong>@T("Password.OldPassword")</strong><br />
+                                        Dit wachtwoord is @Model.PasswordAgeInDays dagen oud.
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-success mb-0">
+                                Geen security waarschuwingen gevonden.
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">@T("Password.PremiumChecks")</p>
+                    }
+                </div>
+            </section>
+
+            <section class="content-card">
+                <div class="content-card-body">
+                    <div class="detail-grid compact-detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">@T("Common.CreatedAt")</span>
+                            @Model.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                        </div>
+
+                        @if (Model.UpdatedAt.HasValue)
+                        {
+                            <div class="detail-item">
+                                <span class="detail-label">@T("Common.UpdatedAt")</span>
+                                @Model.UpdatedAt.Value.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </aside>
+    </div>
+
+    @if (User.IsInRole("PremiumUser"))
+    {
+        <section class="content-card table-card">
+            <div class="content-card-body border-bottom">
+                <div class="detail-section-heading">
+                    <div>
+                        <span class="home-kicker">Premium</span>
+                        <h2>@T("Password.HistoryTitle")</h2>
+                    </div>
+                    <span class="role-pill premium">@Model.HistoryItems.Count versies</span>
+                </div>
+            </div>
+
+            @if (!Model.HistoryItems.Any())
+            {
+                <div class="history-empty">
+                    Er zijn nog geen oudere wachtwoordversies voor dit item.
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>@T("Password.OldPasswordColumn")</th>
+                                <th>@T("Password.ChangedAt")</th>
+                                <th class="text-end">@T("Common.Actions")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.HistoryItems)
+                            {
+                                var inputId = $"oldPassword-{item.Id}";
+
+                                <tr>
+                                    <td data-label="Oud wachtwoord">
+                                        <input id="@inputId"
+                                               type="password"
+                                               class="form-control"
+                                               value="@item.OldPassword"
+                                               readonly />
+                                    </td>
+                                    <td data-label="Gewijzigd op">
+                                        @item.ChangedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                                    </td>
+                                    <td class="text-end" data-label="Acties">
+                                        <div class="action-group justify-content-end">
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-secondary"
+                                                    data-toggle-password="@inputId">
+                                                Tonen
+                                            </button>
+                                            <button type="button"
+                                                    class="btn btn-sm btn-icon btn-outline-primary"
+                                                    data-copy-password="@inputId"
+                                                    aria-label="@T("Password.CopyOldPassword")"
+                                                    title="@T("Password.CopyOldPassword")">
+                                                <svg class="btn-svg" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </section>
+    }
+
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content app-modal">
+                <div class="modal-header">
+                    <h2 class="modal-title h5" id="deleteConfirmModalLabel">@T("Password.DeleteTitle")</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@T("Common.Close")"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">
+                        Je verwijdert <strong>@Model.Platform (@Model.Username)</strong>. Deze actie kan niet ongedaan gemaakt worden.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@T("Common.Cancel")</button>
+                    <form asp-action="Delete" asp-route-id="@Model.Id" asp-route-vaultId="@Model.VaultId" method="post">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">@T("Common.Delete")</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="appToast" class="toast app-toast" role="status" aria-live="polite" aria-atomic="true">
+        <div class="toast-body" id="appToastMessage"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const toastElement = document.getElementById("appToast");
+        const toastMessage = document.getElementById("appToastMessage");
+        const appToast = toastElement ? bootstrap.Toast.getOrCreateInstance(toastElement, { delay: 1800 }) : null;
+
+        function showToast(message) {
+            if (!appToast || !toastMessage) {
+                return;
+            }
+
+            toastMessage.textContent = message;
+            appToast.show();
+        }
+
+        document.querySelectorAll("[data-toggle-password]").forEach((button) => {
+            button.addEventListener("click", () => {
+                const field = document.getElementById(button.dataset.togglePassword);
+
+                if (!field) {
+                    return;
+                }
+
+                field.type = field.type === "password" ? "text" : "password";
+                button.textContent = field.type === "password" ? "Toon" : "Verberg";
+            });
+        });
+
+        document.querySelectorAll("[data-copy-password], [data-copy-value]").forEach((button) => {
+            button.addEventListener("click", async () => {
+                const inputId = button.dataset.copyPassword;
+                const value = inputId
+                    ? document.getElementById(inputId)?.value
+                    : button.dataset.copyValue;
+
+                await navigator.clipboard.writeText(value || "");
+                button.classList.add("is-copied");
+                button.title = "Gekopieerd";
+                showToast(inputId ? "Wachtwoord gekopieerd." : "Gebruikersnaam gekopieerd.");
+                setTimeout(() => {
+                    button.classList.remove("is-copied");
+                    button.title = inputId ? "Wachtwoord kopiëren" : "Gebruikersnaam kopiëren";
+                }, 1200);
+            });
+        });
+    </script>
+}

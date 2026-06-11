@@ -1,0 +1,131 @@
+﻿@model BAD_PROJECT_PWMANAGER.ViewModels.PasswordEntry.PasswordHistoryViewModel
+
+@{
+    ViewData["Title"] = T("Password.HistoryTitle");
+}
+
+<div class="page-shell">
+    <div class="page-header">
+        <div>
+            <h1>@T("Password.HistoryTitle")</h1>
+            <p class="page-subtitle">
+                Bekijk vorige wachtwoordversies voor @Model.Platform.
+            </p>
+        </div>
+
+        <a asp-action="Details"
+           asp-route-id="@Model.PasswordEntryId"
+           class="btn btn-outline-secondary">
+            Terug naar details
+        </a>
+    </div>
+
+    <div class="content-card mb-3">
+        <h2 class="h5 mb-2">@Model.Platform</h2>
+        <p class="mb-0 text-muted">
+            Gebruikersnaam: @Model.Username
+        </p>
+    </div>
+
+    @if (!Model.Items.Any())
+    {
+        <div class="empty-state">
+            <h2>@T("Password.NoHistoryTitle")</h2>
+            <p class="mb-0">
+                Er zijn nog geen oudere wachtwoordversies voor dit item.
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="content-card">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@T("Password.OldPasswordColumn")</th>
+                        <th>@T("Password.ChangedAt")</th>
+                        <th class="text-end">@T("Common.Actions")</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        var inputId = $"oldPassword-{item.Id}";
+
+                        <tr>
+                            <td data-label="Oud wachtwoord">
+                                <input id="@inputId"
+                                       type="password"
+                                       class="form-control"
+                                       value="@item.OldPassword"
+                                       readonly />
+                            </td>
+
+                            <td data-label="Gewijzigd op">
+                                @item.ChangedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                            </td>
+
+                            <td class="text-end" data-label="Acties">
+                                <div class="action-group">
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-secondary"
+                                            data-toggle-password="@inputId">
+                                        Tonen
+                                    </button>
+
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-primary"
+                                            data-copy-password="@inputId">
+                                        Kopieer
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll("[data-toggle-password]").forEach((button) => {
+            button.addEventListener("click", () => {
+                const input = document.getElementById(button.dataset.togglePassword);
+
+                if (!input) {
+                    return;
+                }
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    button.textContent = "Verbergen";
+                } else {
+                    input.type = "password";
+                    button.textContent = "Tonen";
+                }
+            });
+        });
+
+        document.querySelectorAll("[data-copy-password]").forEach((button) => {
+            button.addEventListener("click", async () => {
+                const input = document.getElementById(button.dataset.copyPassword);
+
+                if (!input) {
+                    return;
+                }
+
+                await navigator.clipboard.writeText(input.value);
+
+                const originalText = button.textContent;
+                button.textContent = "Gekopieerd";
+
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 1200);
+            });
+        });
+    </script>
+}

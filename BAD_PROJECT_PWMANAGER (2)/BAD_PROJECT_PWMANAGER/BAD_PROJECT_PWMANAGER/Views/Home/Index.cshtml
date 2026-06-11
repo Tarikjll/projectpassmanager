@@ -1,0 +1,210 @@
+@using Application.Interfaces
+@using BAD_PROJECT_PWMANAGER
+@using Domain.Entities
+@using Microsoft.AspNetCore.Identity
+@inject IVaultService VaultService
+@inject IPasswordEntryService PasswordEntryService
+@inject IPasswordStrengthService PasswordStrengthService
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = Tr("Home.Title");
+
+    string Tr(string key, params object[] args) => UiText.Get(System.Globalization.CultureInfo.CurrentUICulture, key, args);
+
+    const int FreeVaultLimit = 3;
+    const int FreePasswordLimit = 10;
+
+    var isSignedIn = User.Identity?.IsAuthenticated == true;
+    var isAdmin = User.IsInRole("Admin");
+    var isPremium = User.IsInRole("PremiumUser");
+
+    var userId = isSignedIn ? UserManager.GetUserId(User) : null;
+    var vaults = !string.IsNullOrWhiteSpace(userId) && !isAdmin
+        ? VaultService.GetVaultsForUser(userId).ToList()
+        : new List<Vault>();
+    var entries = !string.IsNullOrWhiteSpace(userId) && !isAdmin
+        ? PasswordEntryService.GetEntriesForUser(userId).ToList()
+        : new List<PasswordEntry>();
+
+    var passwordCount = entries.Count;
+    var vaultCount = vaults.Count;
+    var weakCount = entries.Count(e => PasswordStrengthService.GetStrengthLabel(e.StrengthScore) == "Zwak");
+    var oldCount = entries.Count(e => (DateTime.UtcNow - (e.UpdatedAt ?? e.CreatedAt)).Days >= 90);
+    var reusedCount = entries
+        .Where(e => !string.IsNullOrWhiteSpace(e.PasswordHash))
+        .GroupBy(e => e.PasswordHash)
+        .Where(group => group.Count() > 1)
+        .Sum(group => group.Count());
+    var hasSecurityFindings = isPremium && (reusedCount > 0 || oldCount > 0 || weakCount > 0);
+    var recentEntries = entries.OrderByDescending(e => e.UpdatedAt ?? e.CreatedAt).Take(4).ToList();
+}
+
+<div class="home-dashboard">
+    @if (isAdmin)
+    {
+        <section class="home-hero">
+            <div class="home-hero-copy">
+                <span class="home-kicker">@Tr("Home.AdminKicker")</span>
+                <h1>PassManager Admin</h1>
+                <p class="page-subtitle">@Tr("Home.AdminSubtitle")</p>
+                <div class="home-actions">
+                    <a asp-controller="Admin" asp-action="Users" class="btn btn-primary btn-lg">@Tr("Home.ManageUsers")</a>
+                    <a asp-controller="Admin" asp-action="AuditLogs" class="btn btn-outline-secondary btn-lg">@Tr("Home.ViewAuditLogs")</a>
+                </div>
+            </div>
+        </section>
+    }
+    else if (isSignedIn)
+    {
+        <section class="home-hero">
+            <div class="home-hero-copy">
+                <span class="home-kicker">@Tr("Home.Dashboard")</span>
+                <h1>@(isPremium ? Tr("Home.PremiumHeading") : Tr("Home.FreeHeading"))</h1>
+                <p class="page-subtitle">
+                    @(isPremium
+                        ? Tr("Home.PremiumSubtitle")
+                        : Tr("Home.FreeSubtitle"))
+                </p>
+                <div class="home-hero-summary" aria-label="@Tr("Home.AccountOverview")">
+                    <span>@Tr("Home.VaultLimit", vaultCount, isPremium ? vaultCount : FreeVaultLimit)</span>
+                    <span>@Tr("Home.PasswordLimit", passwordCount, isPremium ? passwordCount : FreePasswordLimit)</span>
+                    <span>@(isPremium ? Tr("Home.PremiumActive") : Tr("Home.FreePlan"))</span>
+                </div>
+                <div class="home-actions">
+                    <a asp-controller="Vault" asp-action="Index" class="btn btn-primary btn-lg">@Tr("Home.OpenVaults")</a>
+                    @if (isPremium)
+                    {
+                        <a asp-controller="PasswordGenerator" asp-action="Index" class="btn btn-outline-secondary btn-lg">Generator</a>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="home-grid @(hasSecurityFindings ? "" : "home-grid-single")">
+            @if (hasSecurityFindings)
+            {
+                <div class="content-card home-work-panel">
+                    <div class="content-card-body">
+                        <div class="detail-section-heading">
+                            <div>
+                                <span class="home-kicker">@Tr("Home.QuickReview")</span>
+                                <h2>@Tr("Home.SecurityPriorities")</h2>
+                            </div>
+                        </div>
+
+                        <div class="home-review-list">
+                            <a asp-controller="Vault" asp-action="Index">
+                                <strong>@Tr("Home.ReusedCount", reusedCount)</strong>
+                                <span>@Tr("Home.ReusedCopy")</span>
+                            </a>
+                            <a asp-controller="Vault" asp-action="Index">
+                                <strong>@Tr("Home.OldCount", oldCount)</strong>
+                                <span>@Tr("Home.OldCopy")</span>
+                            </a>
+                            <a asp-controller="Vault" asp-action="Index">
+                                <strong>@Tr("Home.WeakCount", weakCount)</strong>
+                                <span>@Tr("Home.WeakCopy")</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="content-card home-work-panel">
+                    <div class="content-card-body">
+                        <div class="detail-section-heading">
+                            <div>
+                                <span class="home-kicker">@Tr("Home.FreePlanTitle")</span>
+                                <h2>@Tr("Home.FreeMissingTitle")</h2>
+                            </div>
+                        </div>
+
+                        <p class="home-panel-copy">@Tr("Home.FreePlanCopy")</p>
+                        <p class="home-panel-copy">@Tr("Home.FreeMissingCopy")</p>
+                        <div class="premium-feature-list home-feature-list">
+                            <span>@Tr("Home.FreeMissingGenerator")</span>
+                            <span>@Tr("Home.FreeMissingHistory")</span>
+                            <span>@Tr("Home.FreeMissingExport")</span>
+                            <span>@Tr("Home.FreeMissingUnlimited")</span>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="content-card home-work-panel">
+                <div class="content-card-body">
+                    <div class="detail-section-heading">
+                        <div>
+                            <span class="home-kicker">@Tr("Home.Recent")</span>
+                            <h2>@Tr("Home.LatestPasswords")</h2>
+                        </div>
+                    </div>
+
+                    @if (!recentEntries.Any())
+                    {
+                        <p class="text-muted mb-0">@Tr("Home.NoPasswords")</p>
+                    }
+                    else
+                    {
+                        <div class="home-recent-list">
+                            @foreach (var entry in recentEntries)
+                            {
+                                <a asp-controller="PasswordEntry" asp-action="Details" asp-route-id="@entry.Id">
+                                    <strong>@entry.Platform</strong>
+                                    <span>@entry.Username</span>
+                                </a>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        <section class="home-hero public-home-hero">
+            <div class="home-hero-copy">
+                <span class="home-kicker">PassManager</span>
+                <h1>@Tr("Home.PublicHeading")</h1>
+                <p class="page-subtitle">@Tr("Home.PublicSubtitle")</p>
+                <div class="home-hero-summary" aria-label="@Tr("Home.PublicPlans")">
+                    <span>@Tr("Home.PublicPlanCopy")</span>
+                    <span>@Tr("Home.PremiumExport")</span>
+                    <span>@Tr("Home.PremiumUnlimited")</span>
+                </div>
+                <div class="home-actions">
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg">@Tr("Home.StartFree")</a>
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-secondary btn-lg">@Tr("Auth.Login")</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="public-plan-grid" aria-label="@Tr("Home.PublicPlans")">
+            <article class="home-feature">
+                <span class="home-kicker">@Tr("Home.PublicCoreKicker")</span>
+                <h2>@Tr("Home.PublicCoreTitle")</h2>
+                <p>@Tr("Home.PublicCoreCopy")</p>
+                <div class="home-feature-list">
+                    <span>@Tr("Home.PublicCoreVaults")</span>
+                    <span>@Tr("Home.PublicCorePasswords")</span>
+                    <span>@Tr("Home.PublicCoreStrength")</span>
+                    <span>@Tr("Home.PublicCoreOverview")</span>
+                </div>
+            </article>
+            <article class="home-feature premium-plan-card">
+                <span class="home-kicker">Premium</span>
+                <h2>@Tr("Home.PublicPremiumTitle")</h2>
+                <p>@Tr("Home.PublicPremiumCopy")</p>
+                <div class="home-feature-list">
+                    <span>@Tr("Home.PremiumDarkMode")</span>
+                    <span>@Tr("Home.PremiumExport")</span>
+                    <span>@Tr("Home.PremiumSecurityChecks")</span>
+                    <span>@Tr("Home.PremiumUnlimited")</span>
+                </div>
+            </article>
+        </section>
+    }
+</div>
+

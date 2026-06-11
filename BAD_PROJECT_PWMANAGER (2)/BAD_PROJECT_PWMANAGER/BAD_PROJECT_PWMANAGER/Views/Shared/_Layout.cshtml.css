@@ -1,0 +1,3 @@
+/* Intentionally empty.
+   The app design is maintained in wwwroot/css/site.css so theme rules are not split
+   between global CSS and the generated Razor scoped stylesheet. */

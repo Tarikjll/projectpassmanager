@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Nav.Start" xml:space="preserve"><value>Home</value></data>
+  <data name="Nav.Vaults" xml:space="preserve"><value>Vaults</value></data>
+  <data name="Nav.Admin" xml:space="preserve"><value>Admin</value></data>
+  <data name="Nav.Generator" xml:space="preserve"><value>Generator</value></data>
+  <data name="Nav.Theme" xml:space="preserve"><value>Theme</value></data>
+  <data name="Nav.Language" xml:space="preserve"><value>Language</value></data>
+  <data name="Nav.Dutch" xml:space="preserve"><value>Nederlands</value></data>
+  <data name="Nav.English" xml:space="preserve"><value>English</value></data>
+  <data name="Nav.OpenNavigation" xml:space="preserve"><value>Open navigation</value></data>
+  <data name="Nav.ToggleTheme" xml:space="preserve"><value>Toggle light or dark mode</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Close</value></data>
+  <data name="Common.Privacy" xml:space="preserve"><value>Privacy</value></data>
+  <data name="Auth.Account" xml:space="preserve"><value>Account</value></data>
+  <data name="Auth.OpenAccountMenu" xml:space="preserve"><value>Open account menu</value></data>
+  <data name="Auth.ProfileSettings" xml:space="preserve"><value>Profile settings</value></data>
+  <data name="Auth.Logout" xml:space="preserve"><value>Log out</value></data>
+  <data name="Auth.Register" xml:space="preserve"><value>Register</value></data>
+  <data name="Auth.Login" xml:space="preserve"><value>Login</value></data>
+  <data name="Home.Title" xml:space="preserve"><value>Home</value></data>
+  <data name="Home.AdminKicker" xml:space="preserve"><value>Admin dashboard</value></data>
+  <data name="Home.AdminSubtitle" xml:space="preserve"><value>Monitor platform activity and manage user access from one focused workspace.</value></data>
+  <data name="Home.ManageUsers" xml:space="preserve"><value>Manage users</value></data>
+  <data name="Home.ViewAuditLogs" xml:space="preserve"><value>View audit logs</value></data>
+  <data name="Home.AdminTools" xml:space="preserve"><value>Admin tools</value></data>
+  <data name="Home.OperationalAccess" xml:space="preserve"><value>Operational access</value></data>
+  <data name="Home.AdminPanelCopy" xml:space="preserve"><value>Use the admin area for role changes and recent activity review.</value></data>
+  <data name="Home.Users" xml:space="preserve"><value>Users</value></data>
+  <data name="Home.Dashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Home.PremiumHeading" xml:space="preserve"><value>PassManager Dashboard</value></data>
+  <data name="Home.FreeHeading" xml:space="preserve"><value>Vault overview</value></data>
+  <data name="Home.PremiumSubtitle" xml:space="preserve"><value>Review password health, jump into Vaults, and keep account risk visible.</value></data>
+  <data name="Home.FreeSubtitle" xml:space="preserve"><value>Open your Vaults, watch your free limits, and keep saved logins organized.</value></data>
+  <data name="Home.OpenVaults" xml:space="preserve"><value>Open Vaults</value></data>
+  <data name="Home.AddVault" xml:space="preserve"><value>Add Vault</value></data>
+  <data name="Home.PlanStatus" xml:space="preserve"><value>Plan status</value></data>
+  <data name="Home.PremiumActive" xml:space="preserve"><value>Premium active</value></data>
+  <data name="Home.FreePlan" xml:space="preserve"><value>Free plan</value></data>
+  <data name="Home.PremiumPlanCopy" xml:space="preserve"><value>Unlimited Vaults, unlimited passwords, history, generator access, export and security checks are active.</value></data>
+  <data name="Home.FreePlanCopy" xml:space="preserve"><value>{0} Vault slots and {1} password slots remaining on the free plan.</value></data>
+  <data name="Home.Vaults" xml:space="preserve"><value>Vaults</value></data>
+  <data name="Home.AccountOverview" xml:space="preserve"><value>Account overview</value></data>
+  <data name="Home.Passwords" xml:space="preserve"><value>Passwords</value></data>
+  <data name="Home.Remaining" xml:space="preserve"><value>{0} remaining</value></data>
+  <data name="Home.Weak" xml:space="preserve"><value>Weak</value></data>
+  <data name="Home.NeedsReview" xml:space="preserve"><value>Needs review</value></data>
+  <data name="Home.Health" xml:space="preserve"><value>Health</value></data>
+  <data name="Home.Plan" xml:space="preserve"><value>Plan</value></data>
+  <data name="Home.Free" xml:space="preserve"><value>Free</value></data>
+  <data name="Home.Issues" xml:space="preserve"><value>{0} issues</value></data>
+  <data name="Home.PremiumPreview" xml:space="preserve"><value>Premium preview</value></data>
+  <data name="Home.QuickReview" xml:space="preserve"><value>Quick review</value></data>
+  <data name="Home.SecurityPriorities" xml:space="preserve"><value>Security priorities</value></data>
+  <data name="Home.FreeAccountLimits" xml:space="preserve"><value>Free account limits</value></data>
+  <data name="Home.ReusedCount" xml:space="preserve"><value>{0} reused</value></data>
+  <data name="Home.ReusedCopy" xml:space="preserve"><value>Passwords used in more than one entry.</value></data>
+  <data name="Home.OldCount" xml:space="preserve"><value>{0} old</value></data>
+  <data name="Home.OldCopy" xml:space="preserve"><value>Passwords older than 90 days.</value></data>
+  <data name="Home.WeakCount" xml:space="preserve"><value>{0} weak</value></data>
+  <data name="Home.WeakCopy" xml:space="preserve"><value>Entries with weak strength scores.</value></data>
+  <data name="Home.VaultLimit" xml:space="preserve"><value>{0} / {1} Vaults</value></data>
+  <data name="Home.VaultLimitCopy" xml:space="preserve"><value>Free users can create up to {0} Vaults.</value></data>
+  <data name="Home.PasswordLimit" xml:space="preserve"><value>{0} / {1} passwords</value></data>
+  <data name="Home.PasswordLimitCopy" xml:space="preserve"><value>Premium removes the saved password limit.</value></data>
+  <data name="Home.PremiumFeatures" xml:space="preserve"><value>Premium features</value></data>
+  <data name="Home.PremiumFeaturesCopy" xml:space="preserve"><value>Unlock generator, history, exports and duplicate checks.</value></data>
+  <data name="Home.Recent" xml:space="preserve"><value>Recent</value></data>
+  <data name="Home.LatestPasswords" xml:space="preserve"><value>Latest passwords</value></data>
+  <data name="Home.NoPasswords" xml:space="preserve"><value>No saved passwords yet.</value></data>
+  <data name="Home.RecentVaults" xml:space="preserve"><value>Recent Vaults</value></data>
+  <data name="Home.CreateFirstVault" xml:space="preserve"><value>Create your first Vault</value></data>
+  <data name="Home.CreateFirstVaultCopy" xml:space="preserve"><value>Start with one Vault for personal accounts, then add passwords from the Vault page.</value></data>
+  <data name="Home.OpenVaultCopy" xml:space="preserve"><value>Open this Vault to manage its passwords.</value></data>
+  <data name="Home.Open" xml:space="preserve"><value>Open</value></data>
+  <data name="Home.PublicHeading" xml:space="preserve"><value>Private Vaults for passwords</value></data>
+  <data name="Home.PublicSubtitle" xml:space="preserve"><value>Create an account to group credentials into Vaults and keep login details organized.</value></data>
+  <data name="Home.NewHere" xml:space="preserve"><value>New here?</value></data>
+  <data name="Home.PublicPlanCopy" xml:space="preserve"><value>Free accounts can start with 3 Vaults and 10 saved passwords.</value></data>
+</root>

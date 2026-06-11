@@ -1,0 +1,244 @@
+@model BAD_PROJECT_PWMANAGER.ViewModels.Admin.AuditLogIndexViewModel
+
+@{
+    ViewData["Title"] = T("Admin.AuditTitle");
+}
+
+<div class="page-shell">
+    <div class="page-header">
+        <div>
+            <h1>@T("Admin.AuditTitle")</h1>
+        </div>
+
+        <a asp-controller="Admin"
+           asp-action="Users"
+           class="btn btn-outline-secondary">
+            Terug naar gebruikers
+        </a>
+    </div>
+
+    <form method="get" class="audit-filter-bar">
+        <div class="detail-section-heading">
+            <div>
+                <span class="home-kicker">@T("Admin.FilterTitle")</span>
+                <h2>@T("Admin.FilterTitle")</h2>
+            </div>
+            @if (Model.HasFilters)
+            {
+                <a asp-action="AuditLogs" asp-controller="Admin" class="btn btn-outline-secondary btn-sm">
+                    @T("Admin.ResetFilters")
+                </a>
+            }
+        </div>
+
+        <div class="audit-filter-grid">
+            <div class="form-field full-width">
+                <label class="form-label" for="auditSearch">@T("Admin.Search")</label>
+                <input id="auditSearch"
+                       name="q"
+                       value="@Model.SearchTerm"
+                       class="form-control"
+                       placeholder="@T("Admin.SearchPlaceholder")" />
+            </div>
+
+            <div class="form-field">
+                <label class="form-label" for="auditEntity">@T("Admin.EntityFilter")</label>
+                <select id="auditEntity" name="entity" class="form-select">
+                    @if (string.Equals(Model.EntityFilter, "all", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="all" selected>@T("Admin.AllEntities")</option>
+                    }
+                    else
+                    {
+                        <option value="all">@T("Admin.AllEntities")</option>
+                    }
+
+                    @if (string.Equals(Model.EntityFilter, "Vault", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="Vault" selected>Vault</option>
+                    }
+                    else
+                    {
+                        <option value="Vault">Vault</option>
+                    }
+
+                    @if (string.Equals(Model.EntityFilter, "PasswordEntry", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="PasswordEntry" selected>PasswordEntry</option>
+                    }
+                    else
+                    {
+                        <option value="PasswordEntry">PasswordEntry</option>
+                    }
+
+                    @if (string.Equals(Model.EntityFilter, "PasswordHistory", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="PasswordHistory" selected>PasswordHistory</option>
+                    }
+                    else
+                    {
+                        <option value="PasswordHistory">PasswordHistory</option>
+                    }
+
+                    @if (string.Equals(Model.EntityFilter, "PasswordExport", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="PasswordExport" selected>PasswordExport</option>
+                    }
+                    else
+                    {
+                        <option value="PasswordExport">PasswordExport</option>
+                    }
+
+                    @if (string.Equals(Model.EntityFilter, "ApplicationUser", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="ApplicationUser" selected>ApplicationUser</option>
+                    }
+                    else
+                    {
+                        <option value="ApplicationUser">ApplicationUser</option>
+                    }
+
+                    @if (string.Equals(Model.EntityFilter, "AuditLog", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="AuditLog" selected>AuditLog</option>
+                    }
+                    else
+                    {
+                        <option value="AuditLog">AuditLog</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-field">
+                <label class="form-label" for="auditOperation">@T("Admin.OperationFilter")</label>
+                <select id="auditOperation" name="operation" class="form-select">
+                    @if (string.Equals(Model.OperationFilter, "all", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="all" selected>@T("Admin.AllOperations")</option>
+                    }
+                    else
+                    {
+                        <option value="all">@T("Admin.AllOperations")</option>
+                    }
+
+                    @if (string.Equals(Model.OperationFilter, "create", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="create" selected>@T("Admin.OperationCreate")</option>
+                    }
+                    else
+                    {
+                        <option value="create">@T("Admin.OperationCreate")</option>
+                    }
+
+                    @if (string.Equals(Model.OperationFilter, "update", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="update" selected>@T("Admin.OperationUpdate")</option>
+                    }
+                    else
+                    {
+                        <option value="update">@T("Admin.OperationUpdate")</option>
+                    }
+
+                    @if (string.Equals(Model.OperationFilter, "delete", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="delete" selected>@T("Admin.OperationDelete")</option>
+                    }
+                    else
+                    {
+                        <option value="delete">@T("Admin.OperationDelete")</option>
+                    }
+
+                    @if (string.Equals(Model.OperationFilter, "role", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="role" selected>@T("Admin.OperationRole")</option>
+                    }
+                    else
+                    {
+                        <option value="role">@T("Admin.OperationRole")</option>
+                    }
+
+                    @if (string.Equals(Model.OperationFilter, "other", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="other" selected>@T("Admin.OperationOther")</option>
+                    }
+                    else
+                    {
+                        <option value="other">@T("Admin.OperationOther")</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="audit-filter-footer">
+            <button type="submit" class="btn btn-primary">@T("Common.Search")</button>
+            <span class="text-muted">@T("Admin.ResultsSummary", Model.FilteredCount, Model.TotalCount)</span>
+        </div>
+    </form>
+
+    @if (!Model.Logs.Any())
+    {
+        <div class="empty-state">
+            <h2>@(Model.HasFilters ? T("Admin.NoAuditFilteredTitle") : T("Admin.NoAuditTitle"))</h2>
+            <p class="mb-0">
+                @(Model.HasFilters
+                    ? T("Admin.NoAuditFilteredCopy")
+                    : "Er zijn momenteel nog geen acties gelogd.")
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="content-card">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@T("Common.User")</th>
+                        <th>@T("Admin.Operation")</th>
+                        <th>@T("Admin.Action")</th>
+                        <th>@T("Admin.Entity")</th>
+                        <th>@T("Admin.EntityId")</th>
+                        <th>@T("Common.Date")</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var log in Model.Logs)
+                    {
+                        <tr>
+                            <td data-label="Gebruiker">
+                                @log.UserEmail
+                            </td>
+
+                            <td data-label="Operatie">
+                                @T(log.OperationLabel)
+                            </td>
+
+                            <td data-label="Actie">
+                                @log.Action
+                            </td>
+
+                            <td data-label="Entiteit">
+                                @log.EntityName
+                            </td>
+
+                            <td data-label="Entiteit ID">
+                                @if (log.EntityId.HasValue)
+                                {
+                                    @log.EntityId
+                                }
+                                else
+                                {
+                                    <span class="text-muted">-</span>
+                                }
+                            </td>
+
+                            <td data-label="Datum">
+                                @log.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

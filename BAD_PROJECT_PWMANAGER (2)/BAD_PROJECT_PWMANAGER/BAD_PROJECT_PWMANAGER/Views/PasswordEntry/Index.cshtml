@@ -1,0 +1,314 @@
+﻿@model IEnumerable<BAD_PROJECT_PWMANAGER.ViewModels.PasswordEntry.PasswordEntryListItemViewModel>
+
+@{
+    ViewData["Title"] = T("Password.Title");
+    int vaultId = ViewBag.VaultId;
+    var isPremium = User.IsInRole("PremiumUser");
+}
+
+<div class="page-shell">
+    <div class="page-header d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
+        <div>
+            <h1>@T("Password.Title")</h1>
+            <p class="page-subtitle">@T("Password.Subtitle")</p>
+        </div>
+        <a asp-action="Create" asp-route-vaultId="@vaultId" class="btn btn-primary">@T("Password.New")</a>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+        <a asp-controller="Vault" asp-action="Index" class="btn btn-outline-secondary">@T("Password.BackToVaults")</a>
+        @if (Model.Any() && isPremium)
+        {
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exportModal">
+                @T("Password.Export")
+            </button>
+        }
+        else if (Model.Any())
+        {
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn btn-outline-primary premium-lock-button">
+                @T("Password.ExportPremium")
+            </a>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <h2>@T("Password.EmptyTitle")</h2>
+            <p class="mb-3">@T("Password.EmptyCopy")</p>
+            <a asp-action="Create" asp-route-vaultId="@vaultId" class="btn btn-primary">@T("Password.New")</a>
+        </div>
+    }
+    else
+    {
+        <div class="content-card list-toolbar">
+            <div class="list-toolbar-grid">
+                <div class="form-field">
+                    <label for="passwordSearch" class="form-label">@T("Common.Search")</label>
+                    <input id="passwordSearch" type="search" class="form-control" placeholder="@T("Password.SearchPlaceholder")" />
+                </div>
+                <div class="form-field">
+                    <label for="strengthFilter" class="form-label">@T("Password.Strength")</label>
+                    <select id="strengthFilter" class="form-select">
+                        <option value="">@T("Password.AllStrengths")</option>
+                        <option value="Sterk">@T("Password.Strong")</option>
+                        <option value="Gemiddeld">@T("Password.Medium")</option>
+                        <option value="Zwak">@T("Password.Weak")</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="passwordSort" class="form-label">@T("Password.Sort")</label>
+                    <select id="passwordSort" class="form-select">
+                        <option value="created-desc">@T("Password.NewestFirst")</option>
+                        <option value="created-asc">@T("Password.OldestFirst")</option>
+                        <option value="platform-asc">@T("Password.PlatformAsc")</option>
+                        <option value="platform-desc">@T("Password.PlatformDesc")</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card table-card">
+            <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                <tr>
+                    <th>@T("Password.Platform")</th>
+                    <th>@T("Password.Username")</th>
+                    <th>URL</th>
+                    <th>@T("Password.Strength")</th>
+                   
+                    <th>@T("Common.CreatedAt")</th>
+                    <th class="text-end">@T("Common.Actions")</th>
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entry in Model)
+                    {
+                        <tr class="password-row"
+                            data-platform="@entry.Platform"
+                            data-username="@entry.Username"
+                            data-url="@entry.Url"
+                            data-strength="@entry.StrengthLabel"
+                            data-created="@entry.CreatedAt.Ticks">
+                            <td class="fw-semibold" data-label="Platform">@entry.Platform</td>
+                            <td data-label="Gebruikersnaam">@entry.Username</td>
+                            <td data-label="URL">
+                                @if (!string.IsNullOrWhiteSpace(entry.Url))
+                                {
+                                    <a href="@entry.Url" target="_blank">@entry.Url</a>
+                                }
+                            </td>
+                            <td data-label="Sterkte">
+                                <span class="strength-badge" data-strength="@entry.StrengthLabel">
+                                    @entry.StrengthLabel
+                                </span>
+                            </td>
+                              
+                            <td data-label="Aangemaakt op">@entry.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                            <td class="text-end" data-label="Acties">
+                                <div class="action-group">
+                                    <a asp-action="Details" asp-route-id="@entry.Id" class="btn btn-sm btn-outline-info">
+                                        Details bekijken
+                                    </a>
+
+                                    <a asp-action="Edit" asp-route-id="@entry.Id" class="btn btn-sm btn-outline-primary">
+                                        @T("Common.Edit")
+                                    </a>
+
+                                    <form asp-action="Delete" asp-route-id="@entry.Id" asp-route-vaultId="@entry.VaultId" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-danger"
+                                                data-delete-url="@Url.Action("Delete", "PasswordEntry", new { id = entry.Id, vaultId = entry.VaultId })"
+                                                data-delete-label="@entry.Platform (@entry.Username)">
+                                            @T("Common.Delete")
+                                        </button>
+                                    </form>
+
+                                    <button type="button"
+                                            class="btn btn-sm btn-icon btn-outline-secondary"
+                                            data-copy-value="@entry.Username"
+                                            aria-label="@T("Password.CopyUsername")"
+                                            title="@T("Password.CopyUsername")">
+                                        <svg class="btn-svg" viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="9" y="9" width="11" height="11" rx="2"></rect>
+                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                        </svg>
+                                        <span class="visually-hidden">@T("Password.CopyUsername")</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div id="passwordNoResults" class="empty-state list-empty-state d-none">
+            <h2>@T("Password.NoResultsTitle")</h2>
+            <p class="mb-0">@T("Password.NoResultsCopy")</p>
+        </div>
+
+        <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content app-modal">
+                    <div class="modal-header">
+                        <h2 class="modal-title h5" id="deleteConfirmModalLabel">@T("Password.DeleteTitle")</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@T("Common.Close")"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0">
+                            Je verwijdert <strong id="deleteEntryLabel"></strong>. Deze actie kan niet ongedaan gemaakt worden.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@T("Common.Cancel")</button>
+                        <form id="deleteConfirmForm" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger">@T("Common.Delete")</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (isPremium)
+        {
+        <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content app-modal">
+                    <form asp-action="Export" asp-route-vaultId="@vaultId" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="modal-header">
+                            <h2 class="modal-title h5" id="exportModalLabel">@T("Password.ExportTitle")</h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@T("Common.Close")"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="text-muted">
+                                @T("Password.ExportWarning")
+                            </p>
+                            <label for="accountPassword" class="form-label">@T("Password.AccountPassword")</label>
+                            <input id="accountPassword" name="accountPassword" type="password" class="form-control" autocomplete="current-password" required />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@T("Common.Cancel")</button>
+                            <button type="submit" class="btn btn-primary">@T("Password.DownloadCsv")</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        }
+    }
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="appToast" class="toast app-toast" role="status" aria-live="polite" aria-atomic="true">
+        <div class="toast-body" id="appToastMessage"></div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const toastElement = document.getElementById("appToast");
+        const toastMessage = document.getElementById("appToastMessage");
+        const appToast = toastElement ? bootstrap.Toast.getOrCreateInstance(toastElement, { delay: 1800 }) : null;
+
+        function showToast(message) {
+            if (!appToast || !toastMessage) {
+                return;
+            }
+
+            toastMessage.textContent = message;
+            appToast.show();
+        }
+
+        @if (TempData["ExportError"] is string exportError)
+        {
+            <text>showToast("@exportError");</text>
+        }
+
+        document.querySelectorAll("[data-copy-value]").forEach((button) => {
+            button.addEventListener("click", async () => {
+                await navigator.clipboard.writeText(button.dataset.copyValue || "");
+                button.classList.add("is-copied");
+                button.title = "Gekopieerd";
+                showToast("Gebruikersnaam gekopieerd.");
+                setTimeout(() => {
+                    button.classList.remove("is-copied");
+                    button.title = "Gebruikersnaam kopiëren";
+                }, 1200);
+            });
+        });
+
+        const rows = Array.from(document.querySelectorAll(".password-row"));
+        const searchInput = document.getElementById("passwordSearch");
+        const strengthFilter = document.getElementById("strengthFilter");
+        const sortSelect = document.getElementById("passwordSort");
+        const noResults = document.getElementById("passwordNoResults");
+        const tableBody = document.querySelector(".table-card tbody");
+
+        function applyListControls() {
+            const query = (searchInput?.value || "").trim().toLowerCase();
+            const strength = strengthFilter?.value || "";
+            const sortValue = sortSelect?.value || "created-desc";
+            let visibleCount = 0;
+
+            rows.forEach((row) => {
+                const haystack = [
+                    row.dataset.platform,
+                    row.dataset.username,
+                    row.dataset.url
+                ].join(" ").toLowerCase();
+                const matchesSearch = !query || haystack.includes(query);
+                const matchesStrength = !strength || row.dataset.strength === strength;
+                const isVisible = matchesSearch && matchesStrength;
+
+                row.classList.toggle("d-none", !isVisible);
+
+                if (isVisible) {
+                    visibleCount += 1;
+                }
+            });
+
+            const sortedRows = [...rows].sort((a, b) => {
+                if (sortValue === "created-asc" || sortValue === "created-desc") {
+                    const direction = sortValue === "created-desc" ? -1 : 1;
+                    return (Number(a.dataset.created) - Number(b.dataset.created)) * direction;
+                }
+
+                const direction = sortValue === "platform-desc" ? -1 : 1;
+                return (a.dataset.platform || "").localeCompare(b.dataset.platform || "") * direction;
+            });
+
+            sortedRows.forEach((row) => tableBody?.appendChild(row));
+            noResults?.classList.toggle("d-none", visibleCount > 0);
+        }
+
+        [searchInput, strengthFilter, sortSelect].forEach((control) => {
+            control?.addEventListener("input", applyListControls);
+            control?.addEventListener("change", applyListControls);
+        });
+
+        applyListControls();
+
+        const deleteModalElement = document.getElementById("deleteConfirmModal");
+        const deleteModal = deleteModalElement ? bootstrap.Modal.getOrCreateInstance(deleteModalElement) : null;
+        const deleteForm = document.getElementById("deleteConfirmForm");
+        const deleteEntryLabel = document.getElementById("deleteEntryLabel");
+
+        document.querySelectorAll("[data-delete-url]").forEach((button) => {
+            button.addEventListener("click", () => {
+                if (!deleteForm || !deleteEntryLabel || !deleteModal) {
+                    return;
+                }
+
+                deleteForm.action = button.dataset.deleteUrl || "";
+                deleteEntryLabel.textContent = button.dataset.deleteLabel || "dit wachtwoord";
+                deleteModal.show();
+            });
+        });
+    </script>
+}

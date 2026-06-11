@@ -1,0 +1,136 @@
+@page
+@model RegisterModel
+@{
+    ViewData["Title"] = T("Account.RegisterTitle");
+}
+
+<div class="page-shell auth-shell">
+    <div class="page-header">
+        <div>
+            <h1>@T("Account.RegisterTitle")</h1>
+            <p class="page-subtitle">@T("Account.RegisterSubtitle")</p>
+        </div>
+    </div>
+
+    <div class="auth-layout">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-panel auth-card">
+            <div class="form-card-header">
+                <span class="home-kicker">@T("Account.NewUser")</span>
+                <h2>@T("Account.Register")</h2>
+            </div>
+
+            <div asp-validation-summary="All" class="text-danger form-summary" role="alert"></div>
+
+            <div class="form-grid">
+                <div class="form-group form-field">
+                    <label asp-for="Input.FirstName" class="form-label"></label>
+                    <input asp-for="Input.FirstName" class="form-control" placeholder="@T("Account.FirstName")" />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field">
+                    <label asp-for="Input.LastName" class="form-label"></label>
+                    <input asp-for="Input.LastName" class="form-control" placeholder="@T("Account.LastName")" />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field">
+                    <label asp-for="Input.PhoneNumber" class="form-label"></label>
+                    <input asp-for="Input.PhoneNumber" class="form-control" placeholder="@T("Account.Phone")" />
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field">
+                    <label asp-for="Input.UserName" class="form-label"></label>
+                    <input asp-for="Input.UserName" class="form-control" autocomplete="username" placeholder="@T("Account.Username")" />
+                    <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field full-width">
+                    <label asp-for="Input.Email" class="form-label">@T("Common.Email")</label>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field full-width">
+                    <label asp-for="Input.Password" class="form-label">@T("Account.Password")</label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="@T("Account.Password")" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field full-width">
+                    <label asp-for="Input.ConfirmPassword" class="form-label">@T("Account.ConfirmPassword")</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="@T("Account.ConfirmPasswordPlaceholder")" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button"
+                        class="btn btn-outline-secondary btn-lg w-100 mb-3"
+                        onclick="fillRandomRegisterData()">
+                    Vul testgegevens in
+                </button>
+
+                <button id="registerSubmit" type="submit" class="btn btn-lg btn-primary">
+                    Account maken
+                </button>
+            </div>
+        </form>
+
+        @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+        {
+            <section class="content-card auth-card">
+                <div class="content-card-body">
+                    <div class="form-card-header">
+                        <span class="home-kicker">@T("Account.External")</span>
+                        <h2>@T("Account.OtherService")</h2>
+                    </div>
+
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div class="action-group">
+                            @foreach (var provider in Model.ExternalLogins!)
+                            {
+                                <button type="submit"
+                                        class="btn btn-primary"
+                                        name="provider"
+                                        value="@provider.Name"
+                                        title="@T("Account.RegisterWith", provider.DisplayName ?? provider.Name)">
+                                    @provider.DisplayName
+                                </button>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function fillRandomRegisterData() {
+            const random = Math.floor(Math.random() * 100000);
+
+            const firstNames = ["Lina", "Noah", "Mila", "Adam", "Sara", "Yanis", "Emma", "Lucas"];
+            const lastNames = ["Peeters", "Janssens", "Maes", "Dubois", "Jacobs", "Willems"];
+
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const username = `${firstName.toLowerCase()}${lastName.toLowerCase()}${random}`;
+            const email = username + "@@test.be";
+            const phone = `047${Math.floor(1000000 + Math.random() * 8999999)}`;
+            const password = "Test123!";
+
+            document.getElementById("Input_FirstName").value = firstName;
+            document.getElementById("Input_LastName").value = lastName;
+            document.getElementById("Input_UserName").value = username;
+            document.getElementById("Input_PhoneNumber").value = phone;
+            document.getElementById("Input_Email").value = email;
+            document.getElementById("Input_Password").value = password;
+            document.getElementById("Input_ConfirmPassword").value = password;
+        }
+    </script>
+}

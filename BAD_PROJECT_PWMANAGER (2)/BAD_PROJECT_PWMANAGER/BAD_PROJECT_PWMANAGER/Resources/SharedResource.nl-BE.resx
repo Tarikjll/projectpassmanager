@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="Nav.Start" xml:space="preserve"><value>Home</value></data>
+  <data name="Nav.Vaults" xml:space="preserve"><value>Vaults</value></data>
+  <data name="Nav.Admin" xml:space="preserve"><value>Admin</value></data>
+  <data name="Nav.Generator" xml:space="preserve"><value>Generator</value></data>
+  <data name="Nav.Theme" xml:space="preserve"><value>Thema</value></data>
+  <data name="Nav.Language" xml:space="preserve"><value>Taal</value></data>
+  <data name="Nav.Dutch" xml:space="preserve"><value>Nederlands</value></data>
+  <data name="Nav.English" xml:space="preserve"><value>English</value></data>
+  <data name="Nav.OpenNavigation" xml:space="preserve"><value>Navigatie openen</value></data>
+  <data name="Nav.ToggleTheme" xml:space="preserve"><value>Wissel tussen licht en donker thema</value></data>
+  <data name="Common.Close" xml:space="preserve"><value>Sluiten</value></data>
+  <data name="Common.Privacy" xml:space="preserve"><value>Privacy</value></data>
+  <data name="Auth.Account" xml:space="preserve"><value>Account</value></data>
+  <data name="Auth.OpenAccountMenu" xml:space="preserve"><value>Accountmenu openen</value></data>
+  <data name="Auth.ProfileSettings" xml:space="preserve"><value>Profielinstellingen</value></data>
+  <data name="Auth.Logout" xml:space="preserve"><value>Afmelden</value></data>
+  <data name="Auth.Register" xml:space="preserve"><value>Registreren</value></data>
+  <data name="Auth.Login" xml:space="preserve"><value>Aanmelden</value></data>
+  <data name="Home.Title" xml:space="preserve"><value>Start</value></data>
+  <data name="Home.AdminKicker" xml:space="preserve"><value>Admindashboard</value></data>
+  <data name="Home.AdminSubtitle" xml:space="preserve"><value>Volg platformactiviteit op en beheer gebruikerstoegang vanuit een gerichte werkruimte.</value></data>
+  <data name="Home.ManageUsers" xml:space="preserve"><value>Gebruikers beheren</value></data>
+  <data name="Home.ViewAuditLogs" xml:space="preserve"><value>Auditlogs bekijken</value></data>
+  <data name="Home.AdminTools" xml:space="preserve"><value>Adminfuncties</value></data>
+  <data name="Home.OperationalAccess" xml:space="preserve"><value>Operationele toegang</value></data>
+  <data name="Home.AdminPanelCopy" xml:space="preserve"><value>Gebruik de adminomgeving voor rolwijzigingen en controle van recente activiteit.</value></data>
+  <data name="Home.Users" xml:space="preserve"><value>Gebruikers</value></data>
+  <data name="Home.Dashboard" xml:space="preserve"><value>Dashboard</value></data>
+  <data name="Home.PremiumHeading" xml:space="preserve"><value>PassManager Dashboard</value></data>
+  <data name="Home.FreeHeading" xml:space="preserve"><value>Vaultsoverzicht</value></data>
+  <data name="Home.PremiumSubtitle" xml:space="preserve"><value>Controleer de gezondheid van je wachtwoorden, open snel je Vaults en hou risico's zichtbaar.</value></data>
+  <data name="Home.FreeSubtitle" xml:space="preserve"><value>Open je Vaults, volg je gratis limieten op en hou opgeslagen logins georganiseerd.</value></data>
+  <data name="Home.OpenVaults" xml:space="preserve"><value>Vaults openen</value></data>
+  <data name="Home.AddVault" xml:space="preserve"><value>Vault toevoegen</value></data>
+  <data name="Home.PlanStatus" xml:space="preserve"><value>Planstatus</value></data>
+  <data name="Home.PremiumActive" xml:space="preserve"><value>Premium actief</value></data>
+  <data name="Home.FreePlan" xml:space="preserve"><value>Gratis plan</value></data>
+  <data name="Home.PremiumPlanCopy" xml:space="preserve"><value>Onbeperkte Vaults, onbeperkte wachtwoorden, geschiedenis, generator, export en security checks zijn actief.</value></data>
+  <data name="Home.FreePlanCopy" xml:space="preserve"><value>Nog {0} Vault-slots en {1} wachtwoordslots beschikbaar in het gratis plan.</value></data>
+  <data name="Home.Vaults" xml:space="preserve"><value>Vaults</value></data>
+  <data name="Home.AccountOverview" xml:space="preserve"><value>Accountoverzicht</value></data>
+  <data name="Home.Passwords" xml:space="preserve"><value>Wachtwoorden</value></data>
+  <data name="Home.Remaining" xml:space="preserve"><value>{0} over</value></data>
+  <data name="Home.Weak" xml:space="preserve"><value>Zwak</value></data>
+  <data name="Home.NeedsReview" xml:space="preserve"><value>Te controleren</value></data>
+  <data name="Home.Health" xml:space="preserve"><value>Gezondheid</value></data>
+  <data name="Home.Plan" xml:space="preserve"><value>Plan</value></data>
+  <data name="Home.Free" xml:space="preserve"><value>Gratis</value></data>
+  <data name="Home.Issues" xml:space="preserve"><value>{0} aandachtspunten</value></data>
+  <data name="Home.PremiumPreview" xml:space="preserve"><value>Premiumvoorbeeld</value></data>
+  <data name="Home.QuickReview" xml:space="preserve"><value>Snelle controle</value></data>
+  <data name="Home.SecurityPriorities" xml:space="preserve"><value>Security prioriteiten</value></data>
+  <data name="Home.FreeAccountLimits" xml:space="preserve"><value>Limieten gratis account</value></data>
+  <data name="Home.ReusedCount" xml:space="preserve"><value>{0} hergebruikt</value></data>
+  <data name="Home.ReusedCopy" xml:space="preserve"><value>Wachtwoorden die in meerdere items gebruikt worden.</value></data>
+  <data name="Home.OldCount" xml:space="preserve"><value>{0} oud</value></data>
+  <data name="Home.OldCopy" xml:space="preserve"><value>Wachtwoorden ouder dan 90 dagen.</value></data>
+  <data name="Home.WeakCount" xml:space="preserve"><value>{0} zwak</value></data>
+  <data name="Home.WeakCopy" xml:space="preserve"><value>Items met een zwakke sterktescore.</value></data>
+  <data name="Home.VaultLimit" xml:space="preserve"><value>{0} / {1} Vaults</value></data>
+  <data name="Home.VaultLimitCopy" xml:space="preserve"><value>Gratis gebruikers kunnen maximaal {0} Vaults maken.</value></data>
+  <data name="Home.PasswordLimit" xml:space="preserve"><value>{0} / {1} wachtwoorden</value></data>
+  <data name="Home.PasswordLimitCopy" xml:space="preserve"><value>Premium verwijdert de limiet op opgeslagen wachtwoorden.</value></data>
+  <data name="Home.PremiumFeatures" xml:space="preserve"><value>Premium functies</value></data>
+  <data name="Home.PremiumFeaturesCopy" xml:space="preserve"><value>Ontgrendel generator, geschiedenis, export en dubbele-wachtwoordchecks.</value></data>
+  <data name="Home.Recent" xml:space="preserve"><value>Recent</value></data>
+  <data name="Home.LatestPasswords" xml:space="preserve"><value>Laatste wachtwoorden</value></data>
+  <data name="Home.NoPasswords" xml:space="preserve"><value>Nog geen wachtwoorden opgeslagen.</value></data>
+  <data name="Home.RecentVaults" xml:space="preserve"><value>Recente Vaults</value></data>
+  <data name="Home.CreateFirstVault" xml:space="preserve"><value>Maak je eerste Vault</value></data>
+  <data name="Home.CreateFirstVaultCopy" xml:space="preserve"><value>Start met een Vault voor persoonlijke accounts en voeg daarna wachtwoorden toe vanuit de Vault-pagina.</value></data>
+  <data name="Home.OpenVaultCopy" xml:space="preserve"><value>Open deze Vault om de wachtwoorden te beheren.</value></data>
+  <data name="Home.Open" xml:space="preserve"><value>Openen</value></data>
+  <data name="Home.PublicHeading" xml:space="preserve"><value>Prive-Vaults voor wachtwoorden</value></data>
+  <data name="Home.PublicSubtitle" xml:space="preserve"><value>Maak een account om logins in Vaults te groeperen en overzichtelijk te beheren.</value></data>
+  <data name="Home.NewHere" xml:space="preserve"><value>Nieuw hier?</value></data>
+  <data name="Home.PublicPlanCopy" xml:space="preserve"><value>Gratis accounts starten met 3 Vaults en 10 opgeslagen wachtwoorden.</value></data>
+</root>

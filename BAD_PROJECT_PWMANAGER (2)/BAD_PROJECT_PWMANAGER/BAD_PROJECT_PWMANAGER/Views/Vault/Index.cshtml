@@ -1,0 +1,69 @@
+﻿@model IEnumerable<BAD_PROJECT_PWMANAGER.ViewModels.Vault.VaultListItemViewModel>
+
+@{
+    ViewData["Title"] = T("Vault.Title");
+}
+
+<div class="page-shell">
+    <div class="page-header d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
+        <div>
+            <h1>@T("Vault.Title")</h1>
+            <p class="page-subtitle">@T("Vault.Subtitle")</p>
+        </div>
+      
+        <a asp-action="Create" class="btn btn-primary">@T("Vault.New")</a>
+    </div>
+    @if (TempData["ErrorMessage"] is string errorMessage)
+    {
+        <div class="alert alert-danger rounded-4 mb-3">
+            @errorMessage
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="empty-state">
+            <h2>@T("Vault.EmptyTitle")</h2>
+            <p class="mb-3">@T("Vault.EmptyCopy")</p>
+            <a asp-action="Create" class="btn btn-primary">@T("Vault.New")</a>
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            @foreach (var vault in Model)
+            {
+                <div class="col">
+                    <article class="vault-card h-100">
+                        <div>
+                            <span class="home-kicker">@T("Vault.Kicker")</span>
+                            <h2>@vault.Name</h2>
+                            <p>@(string.IsNullOrWhiteSpace(vault.Description) ? T("Vault.NoDescription") : vault.Description)</p>
+                        </div>
+
+                        <div class="vault-card-meta">
+                            <span>@T("Common.CreatedAt")</span>
+                            <strong>@vault.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</strong>
+                        </div>
+
+                        <div class="vault-card-actions d-flex flex-wrap gap-2">
+                            <a asp-controller="PasswordEntry" asp-action="Index" asp-route-vaultId="@vault.Id" class="btn btn-sm btn-success">
+                                @T("Vault.OpenPasswords")
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@vault.Id" class="btn btn-sm btn-outline-primary">
+                                @T("Common.Edit")
+                            </a>
+                            <form asp-action="Delete" asp-route-id="@vault.Id" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-sm btn-outline-danger"
+                                        onclick="return confirm('@T("Vault.DeleteConfirm")');">
+                                    @T("Common.Delete")
+                                </button>
+                            </form>
+                        </div>
+                    </article>
+                </div>
+            }
+        </div>
+    }
+</div>

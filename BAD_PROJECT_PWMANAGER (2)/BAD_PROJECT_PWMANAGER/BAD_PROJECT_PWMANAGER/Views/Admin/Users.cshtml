@@ -1,0 +1,86 @@
+﻿@model IEnumerable<BAD_PROJECT_PWMANAGER.ViewModels.Admin.UserListViewModel>
+
+@{
+    ViewData["Title"] = T("Admin.UsersTitle");
+}
+
+<div class="page-shell">
+    <div class="page-header d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
+        <div>
+            <h1>@T("Admin.UsersTitle")</h1>
+            <p class="page-subtitle">
+                @T("Admin.UsersSubtitle")
+            </p>
+        </div>
+
+        <div class="d-flex gap-2 flex-wrap">
+            <a asp-controller="Admin"
+               asp-action="AuditLogs"
+               class="btn btn-outline-primary">
+                @T("Admin.AuditTitle")
+            </a>
+        </div>
+    </div>
+
+    <div class="content-card table-card admin-users-table">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>@T("Common.Email")</th>
+                        <th>@T("Common.Roles")</th>
+                        <th class="text-end">@T("Common.Actions")</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        var primaryRole = user.Roles.Contains("Admin")
+                            ? "Admin"
+                            : user.Roles.Contains("PremiumUser")
+                                ? "PremiumUser"
+                                : "FreeUser";
+                        var roleLabel = primaryRole == "PremiumUser"
+                            ? T("Admin.Premium")
+                            : primaryRole == "FreeUser"
+                                ? T("Admin.Free")
+                                : "Admin";
+                        var roleClass = primaryRole == "Admin"
+                            ? "admin"
+                            : primaryRole == "PremiumUser"
+                                ? "premium"
+                                : "free";
+
+                        <tr>
+                            <td class="fw-semibold" data-label="@T("Common.Email")">
+                                @user.Email
+                            </td>
+
+                            <td data-label="@T("Common.Roles")">
+                                <span class="role-pill @roleClass">@roleLabel</span>
+                            </td>
+
+                            <td class="text-end" data-label="@T("Common.Actions")">
+                                <div class="action-group">
+                                    <form asp-action="SetRole" method="post" class="role-select-form">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="userId" value="@user.UserId" />
+                                        <select name="role"
+                                                class="form-select form-select-sm role-select"
+                                                aria-label="@T("Admin.ChangeRole")"
+                                                onchange="this.form.submit()">
+                                            <option value="FreeUser" selected="@(primaryRole == "FreeUser")">@T("Admin.Free")</option>
+                                            <option value="PremiumUser" selected="@(primaryRole == "PremiumUser")">@T("Admin.Premium")</option>
+                                            <option value="Admin" selected="@(primaryRole == "Admin")">Admin</option>
+                                        </select>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿@model BAD_PROJECT_PWMANAGER.ViewModels.PasswordGeneratorViewModel
+
+@{
+    ViewData["Title"] = T("Generator.Title");
+}
+
+<div class="page-shell">
+    <div class="page-header">
+        <div>
+            <h1>@T("Generator.Title")</h1>
+            <p class="page-subtitle">
+                @T("Generator.Subtitle")
+            </p>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <form asp-action="Index" method="post">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Length" class="form-label">@T("Generator.Length")</label>
+                <input asp-for="Length" class="form-control" type="number" min="8" max="128" />
+                <span asp-validation-for="Length" class="text-danger"></span>
+            </div>
+
+            <div class="form-check mb-2">
+                <input asp-for="IncludeUppercase" class="form-check-input" />
+                <label asp-for="IncludeUppercase" class="form-check-label">
+                    @T("Generator.UseUppercase")
+                </label>
+            </div>
+
+            <div class="form-check mb-2">
+                <input asp-for="IncludeLowercase" class="form-check-input" />
+                <label asp-for="IncludeLowercase" class="form-check-label">
+                    @T("Generator.UseLowercase")
+                </label>
+            </div>
+
+            <div class="form-check mb-2">
+                <input asp-for="IncludeNumbers" class="form-check-input" />
+                <label asp-for="IncludeNumbers" class="form-check-label">
+                    @T("Generator.UseNumbers")
+                </label>
+            </div>
+
+            <div class="form-check mb-4">
+                <input asp-for="IncludeSymbols" class="form-check-input" />
+                <label asp-for="IncludeSymbols" class="form-check-label">
+                    @T("Generator.UseSymbols")
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                @T("Generator.Generate")
+            </button>
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(Model.GeneratedPassword))
+        {
+            <hr class="my-4" />
+
+            <div class="mb-3">
+                <label class="form-label">@T("Generator.GeneratedPassword")</label>
+
+                <div class="input-group">
+                    <input id="generatedPassword"
+                           class="form-control"
+                           value="@Model.GeneratedPassword"
+                           readonly />
+
+                    <button type="button"
+                            class="btn btn-outline-primary"
+                            onclick="copyGeneratedPassword()">
+                        @T("Generator.Copy")
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function copyGeneratedPassword() {
+            const input = document.getElementById("generatedPassword");
+            navigator.clipboard.writeText(input.value);
+        }
+    </script>
+}

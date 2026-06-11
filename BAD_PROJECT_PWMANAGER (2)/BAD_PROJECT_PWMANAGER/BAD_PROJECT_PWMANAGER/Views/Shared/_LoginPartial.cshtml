@@ -1,0 +1,87 @@
+@using Microsoft.AspNetCore.Identity
+@using Domain.Entities
+@using BAD_PROJECT_PWMANAGER
+@using System.Globalization
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    string Tr(string key, params object[] args) => UiText.Get(CultureInfo.CurrentUICulture, key, args);
+
+    var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+    var isRegisterActive = string.Equals(currentPage, "/Account/Register", StringComparison.OrdinalIgnoreCase);
+    var isLoginActive = string.Equals(currentPage, "/Account/Login", StringComparison.OrdinalIgnoreCase);
+    var isManageActive = currentPage?.StartsWith("/Account/Manage", StringComparison.OrdinalIgnoreCase) == true;
+}
+
+<ul class="navbar-nav app-auth-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var currentUser = await UserManager.GetUserAsync(User);
+        var displayName = currentUser?.UserName ?? Tr("Auth.Account");
+
+        string avatarSrc = "/images/default-avatar.jpg";
+
+        if (currentUser?.ProfileImageData != null &&
+            currentUser.ProfileImageData.Length > 0 &&
+            !string.IsNullOrWhiteSpace(currentUser.ProfileImageContentType))
+        {
+            var base64 = Convert.ToBase64String(currentUser.ProfileImageData);
+            avatarSrc = $"data:{currentUser.ProfileImageContentType};base64,{base64}";
+        }
+
+        <li class="nav-item dropdown app-profile-menu">
+            <button class="profile-menu-button @(isManageActive ? "active" : "")"
+                    type="button"
+                    id="profileMenuButton"
+                    data-bs-toggle="dropdown"
+                    data-bs-auto-close="outside"
+                    aria-expanded="false"
+                    aria-label="@Tr("Auth.OpenAccountMenu")">
+                <img src="@avatarSrc"
+                     alt=""
+                     class="nav-avatar" />
+            </button>
+            <div class="dropdown-menu dropdown-menu-end profile-dropdown" aria-labelledby="profileMenuButton">
+                <div class="profile-dropdown-header">
+                    <img src="@avatarSrc"
+                         alt=""
+                         class="profile-dropdown-avatar" />
+                    <div class="profile-dropdown-meta">
+                        <span class="profile-dropdown-name">@displayName</span>
+                        <span class="profile-dropdown-label">@Tr("Auth.Account")</span>
+                    </div>
+                </div>
+                <div class="profile-dropdown-actions">
+                    <a class="dropdown-item @(isManageActive ? "active" : "")"
+                       asp-area="Identity"
+                       asp-page="/Account/Manage/Index">
+                        @Tr("Auth.ProfileSettings")
+                    </a>
+                    <form asp-area="Identity" asp-page="/Account/Logout"
+                          asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="dropdown-item profile-logout-button">@Tr("Auth.Logout")</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link @(isRegisterActive ? "active" : "")"
+               asp-area="Identity"
+               asp-page="/Account/Register">
+                @Tr("Auth.Register")
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link @(isLoginActive ? "active" : "")"
+               asp-area="Identity"
+               asp-page="/Account/Login">
+                @Tr("Auth.Login")
+            </a>
+        </li>
+    }
+</ul>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+@using System.Globalization
+@using BAD_PROJECT_PWMANAGER
+@{
+    string Tr(string key, params object[] args) => UiText.Get(CultureInfo.CurrentUICulture, key, args);
+
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentPage = ViewContext.RouteData.Values["page"]?.ToString();
+    var isHomeActive = string.Equals(currentController, "Home", StringComparison.OrdinalIgnoreCase);
+    var isVaultActive = string.Equals(currentController, "Vault", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(currentController, "PasswordEntry", StringComparison.OrdinalIgnoreCase);
+    var isAdminActive = string.Equals(currentController, "Admin", StringComparison.OrdinalIgnoreCase);
+    var isGeneratorActive = string.Equals(currentController, "PasswordGenerator", StringComparison.OrdinalIgnoreCase);
+    var currentCulture = CultureInfo.CurrentUICulture.Name;
+    var isEnglish = currentCulture.StartsWith("en", StringComparison.OrdinalIgnoreCase);
+    var activeLanguageLabel = isEnglish ? "EN" : "NL";
+    var returnUrl = Context.Request.PathBase + Context.Request.Path + Context.Request.QueryString;
+    var canUsePremiumTheme = User.IsInRole("PremiumUser") || User.IsInRole("Admin");
+}
+<html lang="@CultureInfo.CurrentUICulture.TwoLetterISOLanguageName" data-premium-theme="@(canUsePremiumTheme ? "true" : "false")">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PassManager</title>
+    <script>
+        (function () {
+            var canUsePremiumTheme = document.documentElement.getAttribute("data-premium-theme") === "true";
+            var storedTheme = localStorage.getItem("passmanager-theme");
+            var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+            var requestedTheme = storedTheme || (prefersDark ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", canUsePremiumTheme ? requestedTheme : "light");
+        })();
+    </script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BAD_PROJECT_PWMANAGER.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md app-navbar">
+            <div class="container-xxl app-nav-container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="brand-mark" aria-hidden="true">PM</span>
+                    <span>PassManager</span>
+                </a>
+                <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#appNavbar" aria-controls="appNavbar"
+                        aria-expanded="false" aria-label="@Tr("Nav.OpenNavigation")">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                @if (canUsePremiumTheme)
+                {
+                    <button type="button" class="theme-toggle d-md-none" data-theme-toggle aria-label="@Tr("Nav.ToggleTheme")">
+                        <span class="theme-toggle-indicator" aria-hidden="true"></span>
+                        <span data-theme-toggle-label>@Tr("Nav.Theme")</span>
+                    </button>
+                }
+                <div id="appNavbar" class="offcanvas offcanvas-end app-nav-menu" tabindex="-1" aria-labelledby="appNavbarLabel">
+                    <div class="offcanvas-header app-nav-header">
+                        <h2 class="offcanvas-title h5" id="appNavbarLabel">PassManager</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="@Tr("Common.Close")"></button>
+                    </div>
+                    <div class="offcanvas-body app-nav-body">
+                        <ul class="navbar-nav app-main-nav">
+                            <li class="nav-item">
+                                <a class="nav-link @(isHomeActive ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">@Tr("Nav.Start")</a>
+                            </li>
+                            @if (!User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(isVaultActive ? "active" : "")" asp-controller="Vault" asp-action="Index">@Tr("Nav.Vaults")</a>
+                                </li>
+                            }
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(isAdminActive ? "active" : "")" asp-controller="Admin" asp-action="Users">@Tr("Nav.Admin")</a>
+                                </li>
+                            }
+                            @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("PremiumUser"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(isGeneratorActive ? "active" : "")"
+                                       asp-controller="PasswordGenerator"
+                                       asp-action="Index">
+                                        @Tr("Nav.Generator")
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                        <div class="app-nav-actions">
+                            <div class="dropdown language-menu">
+                                <button class="theme-toggle dropdown-toggle"
+                                        type="button"
+                                        id="languageMenuButton"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                    @activeLanguageLabel
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end profile-dropdown" aria-labelledby="languageMenuButton">
+                                    <form asp-controller="Home" asp-action="SetLanguage" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="returnUrl" value="@returnUrl" />
+                                        <button type="submit"
+                                                name="culture"
+                                                value="nl-BE"
+                                                class="dropdown-item @(currentCulture.StartsWith("nl", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                                            NL
+                                        </button>
+                                        <button type="submit"
+                                                name="culture"
+                                                value="en"
+                                                class="dropdown-item @(currentCulture.StartsWith("en", StringComparison.OrdinalIgnoreCase) ? "active" : "")">
+                                            EN
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            @if (canUsePremiumTheme)
+                            {
+                                <button type="button" class="theme-toggle d-none d-md-inline-flex" data-theme-toggle aria-label="@Tr("Nav.ToggleTheme")">
+                                    <span class="theme-toggle-indicator" aria-hidden="true"></span>
+                                    <span data-theme-toggle-label>@Tr("Nav.Theme")</span>
+                                </button>
+                            }
+                            <partial name="_LoginPartial" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="app-frame">
+        <main role="main" class="container-xxl app-main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer text-muted">
+        <div class="container-xxl">
+            &copy; 2026 PassManager <span aria-hidden="true">/</span> <a asp-area="" asp-controller="Home" asp-action="Privacy">@Tr("Common.Privacy")</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

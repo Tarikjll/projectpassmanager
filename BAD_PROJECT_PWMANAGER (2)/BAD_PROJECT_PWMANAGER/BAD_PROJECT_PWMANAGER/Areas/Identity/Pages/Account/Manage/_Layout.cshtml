@@ -1,0 +1,32 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+    }
+}
+
+<div class="page-shell">
+    <div class="page-header">
+        <div>
+            <h1>@T("Account.ProfileSettings")</h1>
+            <p class="page-subtitle">@T("Account.ProfileSubtitle")</p>
+        </div>
+    </div>
+
+    <div class="manage-layout">
+        <aside class="profile-side-card content-card-body">
+            <partial name="_ManageNav" />
+        </aside>
+        <section class="manage-shell">
+            @RenderBody()
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

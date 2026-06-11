@@ -1,0 +1,201 @@
+@model BAD_PROJECT_PWMANAGER.ViewModels.PasswordGeneratorViewModel
+
+@{
+    ViewData["Title"] = T("Generator.Title");
+}
+
+<div class="page-shell password-generator-page">
+    <div class="page-header">
+        <div>
+            <h1>@T("Generator.Title")</h1>
+            <p class="page-subtitle">
+                @T("Generator.Subtitle")
+            </p>
+        </div>
+    </div>
+
+    <form asp-controller="PasswordGenerator" asp-action="Index" method="post" class="generator-layout">
+        @Html.AntiForgeryToken()
+
+        <div class="row g-4 align-items-start">
+            <div class="col-12 col-xl-7">
+                <div class="content-card generator-card">
+                    <div asp-validation-summary="ModelOnly" class="text-danger form-summary"></div>
+
+                    <div class="generator-section">
+                        <div class="d-flex flex-column flex-sm-row gap-2 justify-content-between align-items-sm-end">
+                            <div>
+                                <label asp-for="Length" class="form-label mb-1">@T("Generator.Length")</label>
+                                <span class="generator-help">@T("Generator.LengthHelp")</span>
+                            </div>
+                            <div class="input-group generator-length-input">
+                                <span class="input-group-text">@T("Generator.Characters")</span>
+                                <input asp-for="Length"
+                                       id="passwordLength"
+                                       class="form-control"
+                                       type="number"
+                                       min="8"
+                                       max="128" />
+                            </div>
+                        </div>
+
+                        <input id="passwordLengthRange"
+                               type="range"
+                               class="form-range generator-range"
+                               min="8"
+                               max="128"
+                               value="@Model.Length" />
+                        <span asp-validation-for="Length" class="text-danger"></span>
+                    </div>
+
+                    <div class="generator-section">
+                        <div class="generator-section-header">
+                            <h2>@T("Generator.CharacterSets")</h2>
+                            <span class="badge bg-primary">@T("Common.Required")</span>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check form-switch generator-switch">
+                                    <input asp-for="IncludeUppercase" class="form-check-input" role="switch" />
+                                    <label asp-for="IncludeUppercase" class="form-check-label">
+                                        @T("Generator.Uppercase")
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check form-switch generator-switch">
+                                    <input asp-for="IncludeLowercase" class="form-check-input" role="switch" />
+                                    <label asp-for="IncludeLowercase" class="form-check-label">
+                                        @T("Generator.Lowercase")
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check form-switch generator-switch">
+                                    <input asp-for="IncludeNumbers" class="form-check-input" role="switch" />
+                                    <label asp-for="IncludeNumbers" class="form-check-label">
+                                        @T("Generator.Numbers")
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6">
+                                <div class="form-check form-switch generator-switch">
+                                    <input asp-for="IncludeSymbols" class="form-check-input" role="switch" />
+                                    <label asp-for="IncludeSymbols" class="form-check-label">
+                                        @T("Generator.Symbols")
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="generator-section">
+                        <div class="generator-section-header">
+                            <h2>@T("Generator.Readability")</h2>
+                            <span class="badge bg-secondary">@T("Common.Optional")</span>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <div class="form-check form-switch generator-switch">
+                                    <input asp-for="ExcludeSimilarCharacters" class="form-check-input" role="switch" />
+                                    <label asp-for="ExcludeSimilarCharacters" class="form-check-label">
+                                        @T("Generator.ExcludeSimilar")
+                                    </label>
+                                    <span class="generator-help">@T("Generator.ExcludeSimilarHelp")</span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-check form-switch generator-switch">
+                                    <input asp-for="ExcludeAmbiguousSymbols" class="form-check-input" role="switch" />
+                                    <label asp-for="ExcludeAmbiguousSymbols" class="form-check-label">
+                                        @T("Generator.ExcludeAmbiguous")
+                                    </label>
+                                    <span class="generator-help">@T("Generator.ExcludeAmbiguousHelp")</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="generator-actions">
+                        <button type="submit" class="btn btn-primary">
+                            @T("Generator.Generate")
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-5">
+                <div class="content-card generator-result-card">
+                    <div class="generator-section-header">
+                        <h2>@T("Generator.Result")</h2>
+                        @if (!string.IsNullOrWhiteSpace(Model.GeneratedPassword))
+                        {
+                            <span class="badge bg-success">@T("Common.Generated")</span>
+                        }
+                    </div>
+
+                    @if (!string.IsNullOrWhiteSpace(Model.GeneratedPassword))
+                    {
+                        <label class="form-label" for="generatedPassword">@T("Generator.GeneratedPassword")</label>
+                        <div class="input-group">
+                            <input id="generatedPassword"
+                                   class="form-control"
+                                   value="@Model.GeneratedPassword"
+                                   readonly />
+
+                            <button type="button"
+                                    class="btn btn-outline-primary"
+                                    onclick="copyGeneratedPassword()">
+                                @T("Generator.Copy")
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="generator-empty-result">
+                            <strong>@T("Generator.EmptyTitle")</strong>
+                            <span>@T("Generator.EmptyCopy")</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        (() => {
+            const numberInput = document.getElementById("passwordLength");
+            const rangeInput = document.getElementById("passwordLengthRange");
+
+            if (numberInput && rangeInput) {
+                numberInput.addEventListener("input", () => {
+                    rangeInput.value = numberInput.value;
+                });
+
+                rangeInput.addEventListener("input", () => {
+                    numberInput.value = rangeInput.value;
+                });
+            }
+        })();
+
+        function copyGeneratedPassword() {
+            const input = document.getElementById("generatedPassword");
+
+            if (!input) {
+                return;
+            }
+
+            navigator.clipboard.writeText(input.value);
+        }
+    </script>
+}

@@ -1,0 +1,77 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = T("Account.LoginTitle");
+}
+
+<div class="page-shell auth-shell">
+    <div class="page-header">
+        <div>
+            <h1>@T("Account.LoginTitle")</h1>
+            <p class="page-subtitle">@T("Account.LoginSubtitle")</p>
+        </div>
+    </div>
+
+    <div class="auth-layout">
+        <form id="account" method="post" class="form-panel auth-card">
+            <div class="form-card-header">
+                <span class="home-kicker">@T("Account.WelcomeBack")</span>
+                <h2>@T("Account.LoginTitle")</h2>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger form-summary" role="alert"></div>
+
+            <div class="form-grid">
+                <div class="form-group form-field full-width">
+                    <label asp-for="Input.Login" class="form-label"></label>
+                    <input asp-for="Input.Login" class="form-control" autocomplete="username" placeholder="@T("Account.LoginPlaceholder")" />
+                    <span asp-validation-for="Input.Login" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-field full-width">
+                    <label asp-for="Input.Password" class="form-label">@T("Account.Password")</label>
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="@T("Account.Password")" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-field full-width compact-field">
+                    <div class="form-check">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label class="form-check-label" asp-for="Input.RememberMe">
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button id="login-submit" type="submit" class="btn btn-lg btn-primary">@T("Account.LoginTitle")</button>
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-lg btn-outline-secondary">@T("Account.CreateAccount")</a>
+            </div>
+        </form>
+
+        @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+        {
+            <section class="content-card auth-card">
+                <div class="content-card-body">
+                    <div class="form-card-header">
+                        <span class="home-kicker">@T("Account.External")</span>
+                        <h2>@T("Account.OtherService")</h2>
+                    </div>
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div class="action-group">
+                            @foreach (var provider in Model.ExternalLogins!)
+                            {
+                                <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="@T("Account.LoginWith", provider.DisplayName ?? provider.Name)">@provider.DisplayName</button>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
