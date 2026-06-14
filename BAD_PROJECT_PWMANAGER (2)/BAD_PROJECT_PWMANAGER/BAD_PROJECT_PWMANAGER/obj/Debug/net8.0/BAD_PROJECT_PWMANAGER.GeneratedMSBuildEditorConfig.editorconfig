@@ -17,137 +17,137 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = BAD_PROJECT_PWMANAGER
 build_property.RootNamespace = BAD_PROJECT_PWMANAGER
-build_property.ProjectDir = C:\Users\tarik\source\repos\BAD_PROJECT_PWMANAGER\BAD_PROJECT_PWMANAGER\
+build_property.ProjectDir = C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\BAD_PROJECT_PWMANAGER\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\tarik\source\repos\BAD_PROJECT_PWMANAGER\BAD_PROJECT_PWMANAGER
+build_property.MSBuildProjectDirectory = C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\BAD_PROJECT_PWMANAGER
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Login.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Manage/Index.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Manage/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Register.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/_ViewImports.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Admin/Auditlogs.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Admin/Auditlogs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQXVkaXRsb2dzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Admin/Users.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Admin/Users.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Home/Index.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Home/Privacy.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Index.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/Create.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRFbnRyeVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/Details.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRFbnRyeVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/Edit.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRFbnRyeVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/History.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/History.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRFbnRyeVxIaXN0b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/Index.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordEntry/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRFbnRyeVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordGenerator.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordGenerator.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRHZW5lcmF0b3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordGenerator/index.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/PasswordGenerator/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFzc3dvcmRHZW5lcmF0b3JcaW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Shared/Error.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Vault/Create.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Vault/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmF1bHRcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Vault/Edit.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Vault/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmF1bHRcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Vault/Index.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Vault/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmF1bHRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/_ViewImports.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/_ViewStart.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tarik/source/repos/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Shared/_Layout.cshtml]
+[C:/Users/tarik/Desktop/IT - TARIK/OneDrive - ODISEE/2de jaar/pingfin2/projectpassmanager/BAD_PROJECT_PWMANAGER (2)/BAD_PROJECT_PWMANAGER/BAD_PROJECT_PWMANAGER/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-zrc73d3ehy

@@ -25,3 +25,16 @@ C:\Users\tarik\source\repos\BAD_PROJECT_PWMANAGER\artifacts\docs-build\Domain.pd
 C:\Users\tarik\source\repos\BAD_PROJECT_PWMANAGER\artifacts\i18n-build\Domain.deps.json
 C:\Users\tarik\source\repos\BAD_PROJECT_PWMANAGER\artifacts\i18n-build\Domain.dll
 C:\Users\tarik\source\repos\BAD_PROJECT_PWMANAGER\artifacts\i18n-build\Domain.pdb
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\bin\Debug\net8.0\Domain.deps.json
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\bin\Debug\net8.0\Domain.dll
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\bin\Debug\net8.0\Domain.pdb
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\Domain.sourcelink.json
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\Domain.dll
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\refint\Domain.dll
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\Domain.pdb
+C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Domain\obj\Debug\net8.0\ref\Domain.dll

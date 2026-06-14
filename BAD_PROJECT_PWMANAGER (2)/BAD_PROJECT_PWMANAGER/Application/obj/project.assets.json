@@ -684,11 +684,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tarik\\source\\repos\\BAD_PROJECT_PWMANAGER\\Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\tarik\\Desktop\\IT - TARIK\\OneDrive - ODISEE\\2de jaar\\pingfin2\\projectpassmanager\\BAD_PROJECT_PWMANAGER (2)\\BAD_PROJECT_PWMANAGER\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "C:\\Users\\tarik\\source\\repos\\BAD_PROJECT_PWMANAGER\\Application\\Application.csproj",
+      "projectPath": "C:\\Users\\tarik\\Desktop\\IT - TARIK\\OneDrive - ODISEE\\2de jaar\\pingfin2\\projectpassmanager\\BAD_PROJECT_PWMANAGER (2)\\BAD_PROJECT_PWMANAGER\\Application\\Application.csproj",
       "packagesPath": "C:\\Users\\tarik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tarik\\source\\repos\\BAD_PROJECT_PWMANAGER\\Application\\obj\\",
+      "outputPath": "C:\\Users\\tarik\\Desktop\\IT - TARIK\\OneDrive - ODISEE\\2de jaar\\pingfin2\\projectpassmanager\\BAD_PROJECT_PWMANAGER (2)\\BAD_PROJECT_PWMANAGER\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -709,8 +709,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\tarik\\source\\repos\\BAD_PROJECT_PWMANAGER\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\tarik\\source\\repos\\BAD_PROJECT_PWMANAGER\\Domain\\Domain.csproj"
+            "C:\\Users\\tarik\\Desktop\\IT - TARIK\\OneDrive - ODISEE\\2de jaar\\pingfin2\\projectpassmanager\\BAD_PROJECT_PWMANAGER (2)\\BAD_PROJECT_PWMANAGER\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\tarik\\Desktop\\IT - TARIK\\OneDrive - ODISEE\\2de jaar\\pingfin2\\projectpassmanager\\BAD_PROJECT_PWMANAGER (2)\\BAD_PROJECT_PWMANAGER\\Domain\\Domain.csproj"
             }
           }
         }
@@ -752,7 +752,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.311/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.310/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

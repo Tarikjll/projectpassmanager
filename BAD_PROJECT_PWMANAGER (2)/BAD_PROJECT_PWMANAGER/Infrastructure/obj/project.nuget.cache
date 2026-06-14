@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PX1suQCBqSs=",
+  "dgSpecHash": "sal+25J3Epg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\tarik\\source\\repos\\BAD_PROJECT_PWMANAGER\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\tarik\\Desktop\\IT - TARIK\\OneDrive - ODISEE\\2de jaar\\pingfin2\\projectpassmanager\\BAD_PROJECT_PWMANAGER (2)\\BAD_PROJECT_PWMANAGER\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tarik\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\tarik\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
