@@ -157,6 +157,15 @@
                         <option value="role">@T("Admin.OperationRole")</option>
                     }
 
+                    @if (string.Equals(Model.OperationFilter, "ban", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <option value="ban" selected>@T("Admin.OperationBan")</option>
+                    }
+                    else
+                    {
+                        <option value="ban">@T("Admin.OperationBan")</option>
+                    }
+
                     @if (string.Equals(Model.OperationFilter, "other", StringComparison.OrdinalIgnoreCase))
                     {
                         <option value="other" selected>@T("Admin.OperationOther")</option>
@@ -240,5 +249,34 @@
                 </tbody>
             </table>
         </div>
+
+        @if (Model.HasPagination)
+        {
+            <nav class="mt-4" aria-label="Paginatie auditlogs">
+                <ul class="pagination justify-content-center mb-0">
+                    <li class="page-item @(Model.CurrentPage <= 1 ? "disabled" : "")">
+                        <a class="page-link"
+                           asp-action="AuditLogs"
+                           asp-controller="Admin"
+                           asp-route-entity="@Model.EntityFilter"
+                           asp-route-operation="@Model.OperationFilter"
+                           asp-route-q="@Model.SearchTerm"
+                           asp-route-page="@(Model.CurrentPage - 1)">Vorige</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Pagina @Model.CurrentPage van @Model.TotalPages</span>
+                    </li>
+                    <li class="page-item @(Model.CurrentPage >= Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link"
+                           asp-action="AuditLogs"
+                           asp-controller="Admin"
+                           asp-route-entity="@Model.EntityFilter"
+                           asp-route-operation="@Model.OperationFilter"
+                           asp-route-q="@Model.SearchTerm"
+                           asp-route-page="@(Model.CurrentPage + 1)">Volgende</a>
+                    </li>
+                </ul>
+            </nav>
+        }
     }
 </div>

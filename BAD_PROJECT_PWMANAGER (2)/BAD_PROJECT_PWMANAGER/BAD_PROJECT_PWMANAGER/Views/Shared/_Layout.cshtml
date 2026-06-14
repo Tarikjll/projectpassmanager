@@ -73,7 +73,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link @(isAdminActive ? "active" : "")" asp-controller="Admin" asp-action="Users">@Tr("Nav.Admin")</a>
+                                    <a class="nav-link @(isAdminActive ? "active" : "")" asp-controller="Admin" asp-action="Dashboard">@Tr("Nav.Admin")</a>
                                 </li>
                             }
                             @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("PremiumUser"))

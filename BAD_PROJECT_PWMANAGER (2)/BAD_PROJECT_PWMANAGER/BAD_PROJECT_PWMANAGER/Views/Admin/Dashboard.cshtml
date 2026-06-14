@@ -1,0 +1,81 @@
+@model BAD_PROJECT_PWMANAGER.ViewModels.Admin.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin dashboard";
+    var auditTotal = Math.Max(1, Model.AuditCreateCount + Model.AuditUpdateCount + Model.AuditDeleteCount);
+}
+
+<div class="page-shell admin-dashboard-page">
+    <div class="page-header d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
+        <div>
+            <span class="home-kicker">@T("Home.AdminKicker")</span>
+            <h1>Admin dashboard</h1>
+            <p class="page-subtitle">@T("Home.AdminSubtitle")</p>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+            <a asp-controller="Admin" asp-action="Users" class="btn btn-primary">@T("Home.ManageUsers")</a>
+            <a asp-controller="Admin" asp-action="AuditLogs" class="btn btn-outline-secondary">@T("Home.ViewAuditLogs")</a>
+        </div>
+    </div>
+
+
+    <div class="dashboard-columns">
+        <section class="content-card">
+            <div class="content-card-body border-bottom">
+                <div class="detail-section-heading">
+                    <div>
+                        <span class="home-kicker">Laatste acties</span>
+                        <h2>Recente auditlogs</h2>
+                    </div>
+                </div>
+            </div>
+
+            @if (!Model.RecentAuditLogs.Any())
+            {
+                <div class="history-empty">Nog geen auditlogs.</div>
+            }
+            else
+            {
+                <ul class="activity-list">
+                    @foreach (var log in Model.RecentAuditLogs)
+                    {
+                        <li>
+                            <strong>@log.EntityName</strong>
+                            <span>@log.Action</span>
+                            <small>@log.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</small>
+                        </li>
+                    }
+                </ul>
+            }
+        </section>
+
+        <section class="content-card">
+            <div class="content-card-body border-bottom">
+                <div class="detail-section-heading">
+                    <div>
+                        <span class="home-kicker">Login attempts</span>
+                        <h2>Recente aanmeldingen</h2>
+                    </div>
+                </div>
+            </div>
+
+            @if (!Model.RecentLoginAttempts.Any())
+            {
+                <div class="history-empty">Nog geen loginpogingen.</div>
+            }
+            else
+            {
+                <ul class="activity-list">
+                    @foreach (var attempt in Model.RecentLoginAttempts)
+                    {
+                        <li>
+                            <strong>@attempt.LoginIdentifier</strong>
+                            <span>@(attempt.Succeeded ? "Succes" : "Mislukt")</span>
+                            <small>@attempt.AttemptedAtUtc.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</small>
+                        </li>
+                    }
+                </ul>
+            }
+        </section>
+    </div>
+</div>

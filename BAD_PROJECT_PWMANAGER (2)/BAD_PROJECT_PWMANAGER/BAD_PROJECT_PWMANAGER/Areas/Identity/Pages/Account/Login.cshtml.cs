@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using Application.Interfaces;
+using Domain.Entities;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Domain.Entities;
 
 namespace BAD_PROJECT_PWMANAGER.Areas.Identity.Pages.Account;
 
@@ -11,13 +13,19 @@ public class LoginModel : PageModel
 {
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly ILogger<LoginModel> _logger;
- 
     private readonly UserManager<ApplicationUser> _userManager;
-    public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager)
+    private readonly ApplicationDbContext _dbContext;
+
+    public LoginModel(
+        SignInManager<ApplicationUser> signInManager,
+        ILogger<LoginModel> logger,
+        UserManager<ApplicationUser> userManager,
+        ApplicationDbContext dbContext)
     {
         _signInManager = signInManager;
         _logger = logger;
         _userManager = userManager;
+        _dbContext = dbContext;
     }
 
     [BindProperty]
@@ -83,7 +91,15 @@ public class LoginModel : PageModel
 
         if (user == null)
         {
+            LogAttempt(Input.Login, false, "Ongeldige loginpoging.");
             ModelState.AddModelError(string.Empty, "Ongeldige loginpoging.");
+            return Page();
+        }
+
+        if (user.IsBanned)
+        {
+            LogAttempt(Input.Login, false, UiText.T("Account.Banned"), user.Id);
+            ModelState.AddModelError(string.Empty, UiText.T("Account.Banned"));
             return Page();
         }
 
@@ -92,8 +108,10 @@ public class LoginModel : PageModel
             Input.Password,
             Input.RememberMe,
             lockoutOnFailure: true);
+
         if (result.Succeeded)
         {
+            LogAttempt(Input.Login, true, null, user.Id);
             _logger.LogInformation("Gebruiker aangemeld.");
             return LocalRedirect(returnUrl);
         }
@@ -105,11 +123,28 @@ public class LoginModel : PageModel
 
         if (result.IsLockedOut)
         {
+            LogAttempt(Input.Login, false, "Account vergrendeld door te veel mislukte pogingen.", user.Id);
             _logger.LogWarning("Gebruikersaccount vergrendeld.");
             return RedirectToPage("./Lockout");
         }
 
+        LogAttempt(Input.Login, false, "Ongeldig wachtwoord.", user.Id);
         ModelState.AddModelError(string.Empty, "Ongeldige loginpoging.");
         return Page();
+    }
+
+    private void LogAttempt(string loginIdentifier, bool succeeded, string? failureReason, string? userId = null)
+    {
+        _dbContext.LoginAttempts.Add(new LoginAttempt
+        {
+            LoginIdentifier = loginIdentifier,
+            UserId = userId,
+            Succeeded = succeeded,
+            FailureReason = failureReason,
+            IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString(),
+            AttemptedAtUtc = DateTime.UtcNow
+        });
+
+        _dbContext.SaveChanges();
     }
 }

@@ -48,3 +48,28 @@ C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpas
 C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
 C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
 C:\Users\tarik\Desktop\IT - TARIK\OneDrive - ODISEE\2de jaar\pingfin2\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\bin\Debug\net8.0\Infrastructure.deps.json
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\bin\Debug\net8.0\Infrastructure.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\bin\Debug\net8.0\Infrastructure.pdb
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\bin\Debug\net8.0\Application.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\bin\Debug\net8.0\Domain.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\bin\Debug\net8.0\Application.pdb
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\bin\Debug\net8.0\Domain.pdb
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.AssemblyReference.cache
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.AssemblyInfo.cs
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.sourcelink.json
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastr.15EFFBFE.Up2Date
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\refint\Infrastructure.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\Infrastructure.pdb
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\obj\Debug\net8.0\ref\Infrastructure.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\artifacts\verify\Infrastructure.deps.json
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\artifacts\verify\Infrastructure.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\artifacts\verify\Infrastructure.pdb
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\artifacts\verify\Application.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\artifacts\verify\Domain.dll
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\artifacts\verify\Application.pdb
+C:\Users\tarik\source\repos\projectpassmanager\BAD_PROJECT_PWMANAGER (2)\BAD_PROJECT_PWMANAGER\Infrastructure\artifacts\verify\Domain.pdb

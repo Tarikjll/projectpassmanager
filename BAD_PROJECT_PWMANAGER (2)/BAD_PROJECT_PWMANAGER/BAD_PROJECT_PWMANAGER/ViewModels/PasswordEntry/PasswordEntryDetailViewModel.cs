@@ -31,4 +31,6 @@ public class PasswordEntryDetailViewModel
     public int PasswordAgeInDays { get; set; }
 
     public List<PasswordHistoryItemViewModel> HistoryItems { get; set; } = new();
+
+    public List<PasswordExportItemViewModel> ExportItems { get; set; } = new();
 }

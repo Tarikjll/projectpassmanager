@@ -124,6 +124,14 @@ async Task SeedDemoDataAsync(IServiceProvider serviceProvider)
         }
     }
 
+    await EnsureDemoUserAsync(
+        userManager,
+        "admin@pwmanager.be",
+        "Admin",
+        "Seed",
+        "AdminDemo123!",
+        "Admin");
+
     var freeUser = await EnsureDemoUserAsync(
         userManager,
         "free.demo@pwmanager.be",

@@ -21,5 +21,11 @@ namespace Domain.Entities
         public byte[]? ProfileImageData { get; set; }
 
         public string? ProfileImageContentType { get; set; }
+
+        public DateTimeOffset? BannedUntilUtc { get; set; }
+
+        public string? BanReason { get; set; }
+
+        public bool IsBanned => BannedUntilUtc.HasValue && BannedUntilUtc.Value > DateTimeOffset.UtcNow;
     }
 }

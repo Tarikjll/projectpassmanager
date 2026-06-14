@@ -16,6 +16,11 @@ namespace BAD_PROJECT_PWMANAGER.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity?.IsAuthenticated == true && User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Dashboard", "Admin");
+            }
+
             return View();
         }
 
@@ -28,11 +33,11 @@ namespace BAD_PROJECT_PWMANAGER.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
-            var supportedCultures = new[] { "nl-BE", "nl", "en" };
+            var supportedCultures = new[] { "nl", "en" };
 
             if (!supportedCultures.Contains(culture))
             {
-                culture = "nl-BE";
+                culture = "nl";
             }
 
             Response.Cookies.Append(

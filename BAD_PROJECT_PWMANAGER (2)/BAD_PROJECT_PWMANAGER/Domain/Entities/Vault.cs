@@ -10,13 +10,13 @@ namespace Domain.Entities
     public class Vault: BaseEntity
     {
        public string Name { get; set; } = string.Empty;
-        public string? Description { get; set; }
+    public string? Description { get; set; }
 
-        public string UserId { get; set; } = string.Empty;  
+    public string UserId { get; set; } = string.Empty;  
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public ICollection<PasswordEntry> PasswordEntries { get; set; } = new List<PasswordEntry>();
+    public ICollection<PasswordEntry> PasswordEntries { get; set; } = new List<PasswordEntry>();
 
 
     }

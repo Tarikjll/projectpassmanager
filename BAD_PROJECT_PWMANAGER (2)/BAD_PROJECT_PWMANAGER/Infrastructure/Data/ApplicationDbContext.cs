@@ -22,4 +22,5 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<PasswordHistory> PasswordHistories { get; set; }
     public DbSet<PasswordExport> PasswordExports { get; set; }
     public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<LoginAttempt> LoginAttempts { get; set; }
 }

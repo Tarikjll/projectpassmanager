@@ -49,7 +49,8 @@
                 <h1>PassManager Admin</h1>
                 <p class="page-subtitle">@Tr("Home.AdminSubtitle")</p>
                 <div class="home-actions">
-                    <a asp-controller="Admin" asp-action="Users" class="btn btn-primary btn-lg">@Tr("Home.ManageUsers")</a>
+                    <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-primary btn-lg">Dashboard</a>
+                    <a asp-controller="Admin" asp-action="Users" class="btn btn-outline-secondary btn-lg">@Tr("Home.ManageUsers")</a>
                     <a asp-controller="Admin" asp-action="AuditLogs" class="btn btn-outline-secondary btn-lg">@Tr("Home.ViewAuditLogs")</a>
                 </div>
             </div>
@@ -67,10 +68,14 @@
                         : Tr("Home.FreeSubtitle"))
                 </p>
                 <div class="home-hero-summary" aria-label="@Tr("Home.AccountOverview")">
-                    <span>@Tr("Home.VaultLimit", vaultCount, isPremium ? vaultCount : FreeVaultLimit)</span>
-                    <span>@Tr("Home.PasswordLimit", passwordCount, isPremium ? passwordCount : FreePasswordLimit)</span>
+                    @if (!isPremium)
+                    {
+                        <span>@Tr("Home.VaultLimit", vaultCount, FreeVaultLimit)</span>
+                        <span>@Tr("Home.PasswordLimit", passwordCount, FreePasswordLimit)</span>
+                    }
                     <span>@(isPremium ? Tr("Home.PremiumActive") : Tr("Home.FreePlan"))</span>
                 </div>
+               
                 <div class="home-actions">
                     <a asp-controller="Vault" asp-action="Index" class="btn btn-primary btn-lg">@Tr("Home.OpenVaults")</a>
                     @if (isPremium)

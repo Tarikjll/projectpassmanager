@@ -13,6 +13,8 @@ public interface IPasswordEntryService
     IEnumerable<PasswordHistory> GetHistoryForEntry(int passwordEntryId, string userId);
     IEnumerable<PasswordEntry> GetEntriesForUser(string userId);
 
+    IEnumerable<PasswordExport> GetExportsForEntry(int passwordEntryId, string userId);
+
     PasswordEntry? GetEntryForUser(int id, string userId);
 
     void CreateEntry(
@@ -36,4 +38,6 @@ public interface IPasswordEntryService
         bool isPremiumUser);
 
     void DeleteEntry(int id, string userId);
+
+    void RecordExport(int passwordEntryId, string userId, string destinationType, string destinationMasked);
 }

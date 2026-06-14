@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BAD_PROJECT_PWMANAGER")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c29b09e718517c66558d03c62acc95f08cc80eb1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e104b26e680775a7c78150f9fc2fc7f3295e7e8c")]
 [assembly: System.Reflection.AssemblyProductAttribute("BAD_PROJECT_PWMANAGER")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BAD_PROJECT_PWMANAGER")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

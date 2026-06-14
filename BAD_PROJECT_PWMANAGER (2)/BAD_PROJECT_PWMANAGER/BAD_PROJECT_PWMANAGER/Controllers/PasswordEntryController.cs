@@ -1,9 +1,9 @@
-﻿using Application.Interfaces;
+using Application.Interfaces;
 using BAD_PROJECT_PWMANAGER.ViewModels.PasswordEntry;
+using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Entities;
 using System.Text;
 
 namespace BAD_PROJECT_PWMANAGER.Controllers;
@@ -11,6 +11,8 @@ namespace BAD_PROJECT_PWMANAGER.Controllers;
 [Authorize]
 public class PasswordEntryController : Controller
 {
+    private const int DefaultPageSize = 10;
+
     private readonly IPasswordEntryService _passwordEntryService;
     private readonly IPasswordStrengthService _passwordStrengthService;
     private readonly IPasswordEncryptionService _passwordEncryptionService;
@@ -28,17 +30,14 @@ public class PasswordEntryController : Controller
         _userManager = userManager;
     }
 
-    public IActionResult Index(int vaultId)
+    public IActionResult Index(int vaultId, int page = 1)
     {
-
         string userId = _userManager.GetUserId(User)!;
+        bool isPremiumUser = User.IsInRole("PremiumUser");
 
         var currentVaultEntries = _passwordEntryService
             .GetEntriesForVault(vaultId, userId)
             .ToList();
-
-      
-        bool isPremiumUser = User.IsInRole("PremiumUser");
 
         var allUserEntries = isPremiumUser
             ? _passwordEntryService.GetEntriesForUser(userId).ToList()
@@ -48,13 +47,18 @@ public class PasswordEntryController : Controller
             .Where(e => !string.IsNullOrWhiteSpace(e.PasswordHash))
             .GroupBy(e => e.PasswordHash)
             .Where(group => group.Count() > 1)
-            .ToDictionary(
-                group => group.Key,
-                group => group.ToList()
+            .ToDictionary(group => group.Key, group => group.ToList());
 
-            );
+        var totalCount = currentVaultEntries.Count;
+        var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)DefaultPageSize));
+        page = Math.Clamp(page, 1, totalPages);
 
-        var entries = currentVaultEntries
+        var pageEntries = currentVaultEntries
+            .Skip((page - 1) * DefaultPageSize)
+            .Take(DefaultPageSize)
+            .ToList();
+
+        var entries = pageEntries
             .Select(e =>
             {
                 var reusedWithPlatforms = new List<string>();
@@ -82,20 +86,19 @@ public class PasswordEntryController : Controller
                     Url = e.Url,
                     StrengthLabel = _passwordStrengthService.GetStrengthLabel(e.StrengthScore),
                     CreatedAt = e.CreatedAt,
-
                     IsPasswordReused = reusedWithPlatforms.Any(),
                     ReusedWithPlatforms = reusedWithPlatforms,
-
-
                     IsPasswordOld = isPremiumUser && passwordAgeInDays >= 90,
                     PasswordAgeInDays = passwordAgeInDays
                 };
             })
             .ToList();
 
-
         ViewBag.VaultId = vaultId;
-
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = totalPages;
+        ViewBag.PageSize = DefaultPageSize;
+        ViewBag.TotalCount = totalCount;
         return View(entries);
     }
 
@@ -120,7 +123,8 @@ public class PasswordEntryController : Controller
         }
 
         string userId = _userManager.GetUserId(User)!;
-        bool isPremiumUser = await _userManager.IsInRoleAsync(await _userManager.GetUserAsync(User), "PremiumUser");
+        var currentUser = await _userManager.GetUserAsync(User);
+        bool isPremiumUser = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "PremiumUser");
 
         try
         {
@@ -142,6 +146,7 @@ public class PasswordEntryController : Controller
             return View(model);
         }
     }
+
     [HttpGet]
     public IActionResult Details(int id)
     {
@@ -185,10 +190,8 @@ public class PasswordEntryController : Controller
             StrengthLabel = _passwordStrengthService.GetStrengthLabel(entry.StrengthScore),
             CreatedAt = entry.CreatedAt,
             UpdatedAt = entry.UpdatedAt,
-
             IsPasswordReused = isPremiumUser && reusedWithPlatforms.Any(),
             ReusedWithPlatforms = reusedWithPlatforms,
-
             IsPasswordOld = isPremiumUser && passwordAgeInDays >= 90,
             PasswordAgeInDays = passwordAgeInDays,
             HistoryItems = isPremiumUser
@@ -201,7 +204,19 @@ public class PasswordEntryController : Controller
                         ChangedAt = h.ChangedAt
                     })
                     .ToList()
-                : new List<PasswordHistoryItemViewModel>()
+                : new List<PasswordHistoryItemViewModel>(),
+            ExportItems = isPremiumUser
+                ? _passwordEntryService
+                    .GetExportsForEntry(id, userId)
+                    .Select(e => new PasswordExportItemViewModel
+                    {
+                        Id = e.Id,
+                        DestinationType = e.DestinationType,
+                        DestinationMasked = e.DestinationMasked,
+                        ExportedAt = e.ExportedAt
+                    })
+                    .ToList()
+                : new List<PasswordExportItemViewModel>()
         };
 
         return View(model);
@@ -242,7 +257,8 @@ public class PasswordEntryController : Controller
         }
 
         string userId = _userManager.GetUserId(User)!;
-        bool isPremiumUser = await _userManager.IsInRoleAsync(await _userManager.GetUserAsync(User), "PremiumUser");
+        var currentUser = await _userManager.GetUserAsync(User);
+        bool isPremiumUser = currentUser != null && await _userManager.IsInRoleAsync(currentUser, "PremiumUser");
 
         try
         {
@@ -320,16 +336,16 @@ public class PasswordEntryController : Controller
             };
 
             csv.AppendLine(string.Join(",", values.Select(EscapeCsv)));
+
+            _passwordEntryService.RecordExport(
+                entry.Id,
+                userId,
+                "CSV",
+                $"Vault {vaultId}");
         }
 
         var fileName = $"passmanager-vault-{vaultId}-{DateTime.UtcNow:yyyyMMddHHmm}.csv";
         return File(Encoding.UTF8.GetBytes(csv.ToString()), "text/csv", fileName);
-    }
-
-    private static string EscapeCsv(string value)
-    {
-        var escaped = value.Replace("\"", "\"\"");
-        return $"\"{escaped}\"";
     }
 
     [Authorize(Roles = "PremiumUser")]
@@ -364,5 +380,9 @@ public class PasswordEntryController : Controller
         return View(model);
     }
 
-
+    private static string EscapeCsv(string value)
+    {
+        var escaped = value.Replace("\"", "\"\"");
+        return $"\"{escaped}\"";
+    }
 }

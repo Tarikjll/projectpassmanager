@@ -17,8 +17,7 @@ public class VaultService : IVaultService
     public IEnumerable<Vault> GetVaultsForUser(string userId)
     {
         return _unitOfWork.Vaults
-            .GetAllByCondition(v => v.UserId == userId)
-            .OrderBy(v => v.Name);
+            .GetAllByCondition(v => v.UserId == userId);
     }
 
     public Vault? GetVaultForUser(int id, string userId)

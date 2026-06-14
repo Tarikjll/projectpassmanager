@@ -3,6 +3,9 @@
 @{
     ViewData["Title"] = T("Password.Title");
     int vaultId = ViewBag.VaultId;
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+    int totalCount = ViewBag.TotalCount ?? Model.Count();
     var isPremium = User.IsInRole("PremiumUser");
 }
 
@@ -92,7 +95,9 @@
                             data-strength="@entry.StrengthLabel"
                             data-created="@entry.CreatedAt.Ticks">
                             <td class="fw-semibold" data-label="Platform">@entry.Platform</td>
-                            <td data-label="Gebruikersnaam">@entry.Username</td>
+                            <td data-label="Gebruikersnaam">
+                                @entry.Username
+                            </td>
                             <td data-label="URL">
                                 @if (!string.IsNullOrWhiteSpace(entry.Url))
                                 {
@@ -125,18 +130,6 @@
                                             @T("Common.Delete")
                                         </button>
                                     </form>
-
-                                    <button type="button"
-                                            class="btn btn-sm btn-icon btn-outline-secondary"
-                                            data-copy-value="@entry.Username"
-                                            aria-label="@T("Password.CopyUsername")"
-                                            title="@T("Password.CopyUsername")">
-                                        <svg class="btn-svg" viewBox="0 0 24 24" aria-hidden="true">
-                                            <rect x="9" y="9" width="11" height="11" rx="2"></rect>
-                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                        </svg>
-                                        <span class="visually-hidden">@T("Password.CopyUsername")</span>
-                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -145,6 +138,24 @@
             </table>
             </div>
         </div>
+
+        @if (totalPages > 1)
+        {
+            <nav class="mt-4" aria-label="Paginatie wachtwoorden">
+                <ul class="pagination justify-content-center mb-0">
+                    <li class="page-item @(currentPage <= 1 ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-vaultId="@vaultId" asp-route-page="@(currentPage - 1)">Vorige</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Pagina @currentPage van @totalPages</span>
+                    </li>
+                    <li class="page-item @(currentPage >= totalPages ? "disabled" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-vaultId="@vaultId" asp-route-page="@(currentPage + 1)">Volgende</a>
+                    </li>
+                </ul>
+                <p class="text-center text-muted small mt-2">@totalCount wachtwoorden totaal</p>
+            </nav>
+        }
 
         <div id="passwordNoResults" class="empty-state list-empty-state d-none">
             <h2>@T("Password.NoResultsTitle")</h2>

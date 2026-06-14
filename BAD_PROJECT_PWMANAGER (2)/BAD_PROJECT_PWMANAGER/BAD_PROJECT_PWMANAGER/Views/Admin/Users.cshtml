@@ -1,26 +1,27 @@
-﻿@model IEnumerable<BAD_PROJECT_PWMANAGER.ViewModels.Admin.UserListViewModel>
+@model BAD_PROJECT_PWMANAGER.ViewModels.Admin.AdminDashboardViewModel
 
 @{
     ViewData["Title"] = T("Admin.UsersTitle");
+    var currentUserId = ViewBag.CurrentUserId as string ?? string.Empty;
 }
 
 <div class="page-shell">
     <div class="page-header d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
         <div>
             <h1>@T("Admin.UsersTitle")</h1>
-            <p class="page-subtitle">
-                @T("Admin.UsersSubtitle")
-            </p>
+            <p class="page-subtitle">@T("Admin.UsersSubtitle")</p>
         </div>
 
         <div class="d-flex gap-2 flex-wrap">
-            <a asp-controller="Admin"
-               asp-action="AuditLogs"
-               class="btn btn-outline-primary">
-                @T("Admin.AuditTitle")
-            </a>
+            <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-outline-primary">Dashboard</a>
+            <a asp-controller="Admin" asp-action="AuditLogs" class="btn btn-outline-secondary">@T("Admin.AuditTitle")</a>
         </div>
     </div>
+
+    @if (TempData["AdminMessage"] is string adminMessage)
+    {
+        <div class="alert alert-info mb-0">@adminMessage</div>
+    }
 
     <div class="content-card table-card admin-users-table">
         <div class="table-responsive">
@@ -29,12 +30,13 @@
                     <tr>
                         <th>@T("Common.Email")</th>
                         <th>@T("Common.Roles")</th>
+                        <th>@T("Common.Status")</th>
                         <th class="text-end">@T("Common.Actions")</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    @foreach (var user in Model)
+                    @foreach (var user in Model.Users)
                     {
                         var primaryRole = user.Roles.Contains("Admin")
                             ? "Admin"
@@ -53,28 +55,61 @@
                                 : "free";
 
                         <tr>
-                            <td class="fw-semibold" data-label="@T("Common.Email")">
-                                @user.Email
-                            </td>
-
+                            <td class="fw-semibold" data-label="@T("Common.Email")">@user.Email</td>
                             <td data-label="@T("Common.Roles")">
                                 <span class="role-pill @roleClass">@roleLabel</span>
                             </td>
-
+                            <td data-label="@T("Common.Status")">
+                                @if (user.IsBanned)
+                                {
+                                    <span class="ban-pill ban-pill-active">@T("Admin.Banned")</span>
+                                }
+                                else
+                                {
+                                    <span class="ban-pill ban-pill-clear">@T("Admin.NotBanned")</span>
+                                }
+                            </td>
                             <td class="text-end" data-label="@T("Common.Actions")">
-                                <div class="action-group">
+                                <div class="action-group admin-user-actions">
                                     <form asp-action="SetRole" method="post" class="role-select-form">
                                         @Html.AntiForgeryToken()
                                         <input type="hidden" name="userId" value="@user.UserId" />
-                                        <select name="role"
-                                                class="form-select form-select-sm role-select"
-                                                aria-label="@T("Admin.ChangeRole")"
-                                                onchange="this.form.submit()">
+                                        <select name="role" class="form-select form-select-sm role-select" aria-label="@T("Admin.ChangeRole")" onchange="this.form.submit()">
                                             <option value="FreeUser" selected="@(primaryRole == "FreeUser")">@T("Admin.Free")</option>
                                             <option value="PremiumUser" selected="@(primaryRole == "PremiumUser")">@T("Admin.Premium")</option>
                                             <option value="Admin" selected="@(primaryRole == "Admin")">Admin</option>
                                         </select>
                                     </form>
+
+                                    @if (user.UserId != currentUserId)
+                                    {
+                                        @if (user.IsBanned)
+                                        {
+                                            <form asp-action="UnbanUser" method="post">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="userId" value="@user.UserId" />
+                                                <button type="submit" class="btn btn-sm btn-outline-success">@T("Admin.Unban")</button>
+                                            </form>
+                                        }
+                                        else
+                                        {
+                                            <button type="button"
+                                                    class="btn btn-sm btn-outline-danger"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#banUserModal"
+                                                    data-ban-user
+                                                    data-user-id="@user.UserId"
+                                                    data-user-email="@user.Email">
+                                                @T("Admin.Ban")
+                                            </button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="admin-action-placeholder" aria-hidden="true">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" disabled>@T("Admin.Unban")</button>
+                                        </span>
+                                    }
                                 </div>
                             </td>
                         </tr>
@@ -84,3 +119,67 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="banUserModal" tabindex="-1" aria-labelledby="banUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content app-modal">
+            <form asp-action="BanUser" method="post">
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h2 class="modal-title h5" id="banUserModalLabel">@T("Admin.BanUser")</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="@T("Common.Close")"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="userId" value="" />
+                    <p class="text-muted mb-3"><strong data-ban-email></strong></p>
+                    <div class="mb-3">
+                        <label class="form-label" for="banDurationDays">@T("Admin.BanDurationDays")</label>
+                        <input id="banDurationDays" name="banDurationDays" type="number" min="1" value="7" class="form-control" />
+                    </div>
+                    <div>
+                        <label class="form-label" for="banReason">@T("Admin.BanReason")</label>
+                        <textarea id="banReason" name="banReason" class="form-control" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">@T("Common.Cancel")</button>
+                    <button type="submit" class="btn btn-danger">@T("Admin.BanUser")</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll("[data-ban-user]").forEach((button) => {
+            button.addEventListener("click", () => {
+                const modal = document.getElementById("banUserModal");
+                if (!modal) {
+                    return;
+                }
+
+                const userIdInput = modal.querySelector("input[name='userId']");
+                const emailTarget = modal.querySelector("[data-ban-email]");
+                const durationInput = modal.querySelector("input[name='banDurationDays']");
+                const reasonInput = modal.querySelector("textarea[name='banReason']");
+
+                if (userIdInput) {
+                    userIdInput.value = button.dataset.userId || "";
+                }
+
+                if (emailTarget) {
+                    emailTarget.textContent = button.dataset.userEmail || "";
+                }
+
+                if (durationInput) {
+                    durationInput.value = "7";
+                }
+
+                if (reasonInput) {
+                    reasonInput.value = "";
+                }
+            });
+        });
+    </script>
+}

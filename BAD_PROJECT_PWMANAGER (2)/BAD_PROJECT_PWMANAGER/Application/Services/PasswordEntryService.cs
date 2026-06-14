@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Application.Interfaces;
 using Domain.Entities;
-  
+
 namespace Application.Services;
 
 public class PasswordEntryService : IPasswordEntryService
@@ -40,7 +34,8 @@ public class PasswordEntryService : IPasswordEntryService
 
         return _unitOfWork.PasswordEntries
             .GetAllByCondition(p => p.VaultId == vaultId)
-            .OrderBy(p => p.Platform);
+            .OrderBy(p => p.Platform)
+            .ToList();
     }
 
     public PasswordEntry? GetEntryForUser(int id, string userId)
@@ -78,15 +73,6 @@ public class PasswordEntryService : IPasswordEntryService
         }
 
         string passwordHash = _hashService.HashPassword(plainPassword);
-
-        if (isPremiumUser)
-        {
-            bool passwordAlreadyUsed = _unitOfWork.PasswordEntries
-                .GetAllByCondition(p => p.Vault.UserId == userId && p.PasswordHash == passwordHash)
-                .Any();
-
-            
-        }
 
         var entry = new PasswordEntry
         {
@@ -190,7 +176,6 @@ public class PasswordEntryService : IPasswordEntryService
         });
 
         _unitOfWork.Save();
-
     }
 
     public IEnumerable<PasswordHistory> GetHistoryForEntry(int passwordEntryId, string userId)
@@ -203,12 +188,10 @@ public class PasswordEntryService : IPasswordEntryService
         }
 
         return _unitOfWork.PasswordHistories
-            .GetAll()
-            .Where(h => h.PasswordEntryId == passwordEntryId)
+            .GetAllByCondition(h => h.PasswordEntryId == passwordEntryId)
             .OrderByDescending(h => h.ChangedAt)
             .ToList();
     }
-
 
     public IEnumerable<PasswordEntry> GetEntriesForUser(string userId)
     {
@@ -220,13 +203,56 @@ public class PasswordEntryService : IPasswordEntryService
         if (!vaultIds.Any())
         {
             return new List<PasswordEntry>();
-        }   
+        }
 
         return _unitOfWork.PasswordEntries
             .GetAllByCondition(p => vaultIds.Contains(p.VaultId))
             .OrderBy(p => p.Platform)
             .ToList();
+    }
 
+    public IEnumerable<PasswordExport> GetExportsForEntry(int passwordEntryId, string userId)
+    {
+        var entry = GetEntryForUser(passwordEntryId, userId);
 
+        if (entry == null)
+        {
+            throw new InvalidOperationException("Wachtwoord niet gevonden.");
+        }
+
+        return _unitOfWork.PasswordExports
+            .GetAllByCondition(e => e.PasswordEntryId == passwordEntryId && e.UserId == userId)
+            .OrderByDescending(e => e.ExportedAt)
+            .ToList();
+    }
+
+    public void RecordExport(int passwordEntryId, string userId, string destinationType, string destinationMasked)
+    {
+        var entry = GetEntryForUser(passwordEntryId, userId);
+
+        if (entry == null)
+        {
+            throw new InvalidOperationException("Wachtwoord niet gevonden.");
+        }
+
+        _unitOfWork.PasswordExports.Add(new PasswordExport
+        {
+            PasswordEntryId = passwordEntryId,
+            UserId = userId,
+            DestinationType = destinationType,
+            DestinationMasked = destinationMasked,
+            ExportedAt = DateTime.UtcNow
+        });
+
+        _unitOfWork.AuditLogs.Add(new AuditLog
+        {
+            UserId = userId,
+            Action = "Password export geregistreerd",
+            EntityName = nameof(PasswordExport),
+            EntityId = passwordEntryId,
+            CreatedAt = DateTime.UtcNow
+        });
+
+        _unitOfWork.Save();
     }
 }
